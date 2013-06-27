@@ -13,8 +13,8 @@ namespace HashBot
 	public partial class AppDelegate : UIApplicationDelegate
 	{
 		// class-level declarations
-		UIWindow window;
-		MainScreanTabController tabController;
+		private UIWindow _window;
+		private MainScreanTabController _tabController;
 		//
 		// This method is invoked when the application has loaded and is ready to run. In this 
 		// method you should instantiate the window, load the UI into it and then make the window
@@ -25,14 +25,14 @@ namespace HashBot
 		public override bool FinishedLaunching (UIApplication app, NSDictionary options)
 		{
 			// create a new window instance based on the screen size
-			window = new UIWindow (UIScreen.MainScreen.Bounds);
-			tabController = new MainScreanTabController ();
-			window.RootViewController = tabController;
+			_window = new UIWindow (UIScreen.MainScreen.Bounds);
+			_tabController = new MainScreanTabController ();
+			_window.RootViewController = _tabController;
 			// If you have defined a root view controller, set it here:
 			// window.RootViewController = myViewController;
 			
 			// make the window visible
-			window.MakeKeyAndVisible ();
+			_window.MakeKeyAndVisible ();
 			
 			return true;
 		}

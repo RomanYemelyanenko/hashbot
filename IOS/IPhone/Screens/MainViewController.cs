@@ -7,10 +7,13 @@ namespace HashBot
 {
 	public partial class MainViewController : UIViewController
 	{
-		string _hashTag;
+		private string _hashTag;
+
+
 		public MainViewController (string hashTag) : base ("MainViewController", null)
 		{
 			_hashTag = hashTag;
+			Title = hashTag;
 		}
 
 		public override void DidReceiveMemoryWarning ()

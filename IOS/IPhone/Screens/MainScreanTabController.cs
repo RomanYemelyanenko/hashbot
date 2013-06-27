@@ -5,30 +5,14 @@ namespace HashBot
 {
 	public class MainScreanTabController : UITabBarController
 	{
-		UIViewController twitterTab, dribbbleTab, appleTab, gihubTab;
+		private UIViewController twitterTab, dribbbleTab, appleTab, gihubTab;
 
 		public MainScreanTabController () 
 		{
-			twitterTab = new MainViewController("#Twitter");
-			twitterTab.TabBarItem.Image = UIImage.FromFile ("Images/TabBar/icon_twitter.png");
-			twitterTab.Title = "#Twitter";
-
-			twitterTab.View.BackgroundColor = UIColor.Green;
-
-			dribbbleTab = new MainViewController("#Dribbble");
-			dribbbleTab.TabBarItem.Image = UIImage.FromFile ("Images/TabBar/icon_dribbble.png");
-			dribbbleTab.Title = "#Dribbble";
-			dribbbleTab.View.BackgroundColor = UIColor.Orange;
-
-			appleTab = new MainViewController("#Apple");
-			appleTab.TabBarItem.Image = UIImage.FromFile ("Images/TabBar/icon_apple.png");
-			appleTab.Title = "#Apple";
-			appleTab.View.BackgroundColor = UIColor.Red;
-
-			gihubTab = new MainViewController("#GitHub");
-			gihubTab.TabBarItem.Image = UIImage.FromFile ("Images/TabBar/icon_github.png");
-			gihubTab.Title = "#GitHub";
-			gihubTab.View.BackgroundColor = UIColor.Brown;
+			twitterTab = CreateController ("#Twitter","Images/TabBar/icon_twitter.png");
+			dribbbleTab = CreateController ("#Dribbble","Images/TabBar/icon_dribbble.png");
+			appleTab = CreateController ("#Apple","Images/TabBar/icon_apple.png");
+			gihubTab = CreateController ("#GitHub","Images/TabBar/icon_github.png");
 
 			var tabs = new UIViewController[] {
 				twitterTab, dribbbleTab, appleTab, gihubTab
@@ -37,6 +21,18 @@ namespace HashBot
 			ViewControllers = tabs;
 		}
 
+
+
+		private UIViewController CreateController (string tabTitle, string tabImagePath)
+		{
+			var controller = new MainViewController (tabTitle);
+			controller.TabBarItem.Image = UIImage.FromFile (tabImagePath);
+			controller.View.BackgroundColor = UIColor.Green;
+
+			var navController = new UINavigationController (controller);
+
+			return navController;
+		}
 	}
 }
 
