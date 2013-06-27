@@ -114,12 +114,12 @@
     <Compile Include="Services\TwitterSearcher\TwitterSearcher.cs" />
     <Compile Include="Models\TweetModel.cs" />
     <Compile Include="Models\Error.cs" />
-    <Compile Include="Screens\MainScreenController.cs" />
-    <Compile Include="Screens\MainScreenController.designer.cs">
-      <DependentUpon>MainScreenController.cs</DependentUpon>
+    <Compile Include="Screens\MainScreanTabController.cs" />
+    <Compile Include="Screens\MainViewController.cs" />
+    <Compile Include="Screens\MainViewController.designer.cs">
+      <DependentUpon>MainViewController.cs</DependentUpon>
     </Compile>
   </ItemGroup>
-  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
     <BundleResource Include="Resources\Images\Icons\Icon-Small.png" />
     <BundleResource Include="Resources\Images\Icons\Icon-Small%402x.png" />
@@ -170,7 +170,5 @@
   <ItemGroup>
     <ITunesArtwork Include="Resources\Images\Icons\iTunesArtwork.png" />
   </ItemGroup>
-  <ItemGroup>
-    <InterfaceDefinition Include="Screens\MainScreenController.xib" />
-  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
 </Project>
