@@ -5,21 +5,30 @@ namespace HashBot
 {
 	public class MainScreanTabController : UITabBarController
 	{
+
+
 		public MainScreanTabController () 
 		{
+			ApplicationOnlyTwitterAuthService authService = new ApplicationOnlyTwitterAuthService ( "tajGuj9oxo2J6dyIdOv3Mg",
+			                                                                                   "Njx3rTnYNXxzJJMkyQPHynJ1tRx8PdHLXBIkp4", 
+			                                                                                   "https://api.twitter.com/oauth2/token",
+			                                                                                   "#Bot");
+
+			TwitterSearcher searcher = new TwitterSearcher (authService, "https://api.twitter.com","1.1/search/tweets.json");
+
 			ViewControllers = new UIViewController[] {
-				CreateController ("#Twitter","Images/TabBar/icon_twitter.png"),
-				CreateController ("#Dribbble","Images/TabBar/icon_dribbble.png"),
-				CreateController ("#Apple","Images/TabBar/icon_apple.png"),
-				CreateController ("#GitHub","Images/TabBar/icon_github.png")
+				CreateController ("#Twitter","Images/TabBar/icon_twitter.png", searcher),
+				CreateController ("#Dribbble","Images/TabBar/icon_dribbble.png", searcher),
+				CreateController ("#Apple","Images/TabBar/icon_apple.png", searcher),
+				CreateController ("#GitHub","Images/TabBar/icon_github.png", searcher)
 			};
 		}
 
 
 
-		private UIViewController CreateController (string tabTitle, string tabImagePath)
+		private UIViewController CreateController (string tabTitle, string tabImagePath, TwitterSearcher searcher)
 		{
-			var controller = new MainViewController (tabTitle);
+			var controller = new MainViewController (tabTitle, searcher);
 			controller.TabBarItem.Image = UIImage.FromFile (tabImagePath);
 			controller.View.BackgroundColor = UIColor.Green;
 
