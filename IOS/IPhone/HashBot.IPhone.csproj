@@ -102,7 +102,6 @@
     <None Include="Resources\Images\Info\.DS_Store" />
     <None Include="Resources\Images\Main\.DS_Store" />
     <None Include="Resources\Images\Mockups\.DS_Store" />
-    <None Include="Resources\Images\Splash\.DS_Store" />
     <None Include="Resources\Images\TabBar\.DS_Store" />
     <None Include="Resources\Images\Tweets\.DS_Store" />
   </ItemGroup>
@@ -119,6 +118,12 @@
     <Compile Include="Screens\MainViewController.designer.cs">
       <DependentUpon>MainViewController.cs</DependentUpon>
     </Compile>
+    <Compile Include="Screens\TweetViewController.cs" />
+    <Compile Include="Screens\TweetViewController.designer.cs">
+      <DependentUpon>TweetViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Screens\TweetsTableViewController.cs" />
+    <Compile Include="Screens\TweetsTableViewDataSource.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -167,11 +172,21 @@
     <BundleResource Include="Resources\Images\Tweets\bg%402x.png" />
     <BundleResource Include="Resources\Images\Tweets\line.png" />
     <BundleResource Include="Resources\Images\Tweets\line%402x.png" />
+    <BundleResource Include="Resources\Default%402x.png" />
+    <BundleResource Include="Resources\Icon-Small.png" />
+    <BundleResource Include="Resources\Icon.png" />
+    <BundleResource Include="Resources\Icon%402x.png" />
+    <BundleResource Include="Resources\Icon-Small%402x.png" />
+    <BundleResource Include="Resources\Default.png" />
+    <BundleResource Include="Resources\Images\Splash\Default-568h%402x.png" />
+    <BundleResource Include="Resources\Default-568h%402x.png" />
   </ItemGroup>
   <ItemGroup>
     <ITunesArtwork Include="Resources\Images\Icons\iTunesArtwork.png" />
+    <ITunesArtwork Include="iTunesArtwork%402x" />
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Screens\MainViewController.xib" />
+    <InterfaceDefinition Include="Screens\TweetViewController.xib" />
   </ItemGroup>
 </Project>
