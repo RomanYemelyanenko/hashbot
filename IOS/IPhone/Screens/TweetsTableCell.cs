@@ -22,6 +22,7 @@ namespace HashBot
 
 			_subheadingLabel = new UILabel () {
 				Font = UIFont.FromName("AmericanTypewriter", 13f),
+				//Font = Fonts.Helvetica(13)
 				TextColor = UIColor.FromRGB (137, 137, 137),
 				TextAlignment = UITextAlignment.Center,
 				BackgroundColor = UIColor.Clear
@@ -33,6 +34,7 @@ namespace HashBot
 				TextAlignment = UITextAlignment.Center,
 				BackgroundColor = UIColor.Clear
 			};
+
 			_createdLable.Frame = new RectangleF (ContentView.Bounds.Width - 80, 4, 52, 26);
 			_createdLable.AutoresizingMask = UIViewAutoresizing.FlexibleLeftMargin;
 

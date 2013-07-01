@@ -96,7 +96,6 @@
     <None Include="Info.plist" />
     <None Include="Resources\Images\fonts.rtf" />
     <None Include="Resources\Images\Инфо текст.rtf" />
-    <None Include="Resources\Images\Tweets\.DS_Store" />
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Main.cs" />
@@ -117,6 +116,7 @@
     </Compile>
     <Compile Include="Screens\TweetsTableCell.cs" />
     <Compile Include="Screens\TweetsTableSource.cs" />
+    <Compile Include="Screens\InfoViewController.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

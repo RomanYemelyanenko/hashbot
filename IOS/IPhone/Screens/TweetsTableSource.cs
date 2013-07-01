@@ -1,22 +1,21 @@
 using System;
 using MonoTouch.UIKit;
 using MonoTouch.Foundation;
+using System.Collections.Generic;
 
 namespace HashBot
 {
 	public class TweetsTableSource : UITableViewSource
 	{
-		Tweet[] _tweets;
+		List<Tweet> _tweets;
 		NSString cellIdentifier = new NSString("TableCell");
 
-		public TweetsTableSource (Tweet[] tweets)
-		{
-			_tweets = tweets;
-		}
+
 		public override int RowsInSection (UITableView tableview, int section)
 		{
-			return _tweets.Length;
+			return _tweets.Count;
 		}
+
 		public override UITableViewCell GetCell (UITableView tableView, MonoTouch.Foundation.NSIndexPath indexPath)
 		{
 			var cell = tableView.DequeueReusableCell (cellIdentifier) as TweetsTableCell;
@@ -29,9 +28,14 @@ namespace HashBot
 			return cell;
 		}
 
+		public void AddTweets(IEnumerable<Tweet> tweets)
+		{
+			_tweets.AddRange (tweets);
+		}
+
 		public TweetsTableSource ()
 		{
-			_tweets = new Tweet[] { };
+			_tweets = new List<Tweet>();
 		}
 	}
 }
