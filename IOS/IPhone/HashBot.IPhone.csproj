@@ -91,6 +91,9 @@
     <Folder Include="Services\TwitterSearcher\" />
     <Folder Include="Services\Helpers\" />
     <Folder Include="Resources\Images\" />
+    <Folder Include="Screens\Main\" />
+    <Folder Include="Screens\Info\" />
+    <Folder Include="Screens\TweetProfile\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -105,18 +108,23 @@
     <Compile Include="Services\TwitterSearcher\TwitterSearcher.cs" />
     <Compile Include="Models\TweetModel.cs" />
     <Compile Include="Models\Error.cs" />
-    <Compile Include="Screens\MainScreanTabController.cs" />
-    <Compile Include="Screens\MainViewController.cs" />
-    <Compile Include="Screens\MainViewController.designer.cs">
+    <Compile Include="Services\Helpers\ImageHelper.cs" />
+    <Compile Include="Screens\Info\InfoViewController.cs" />
+    <Compile Include="Screens\Main\TweetsTableCell.cs" />
+    <Compile Include="Screens\Main\MainViewController.cs" />
+    <Compile Include="Screens\Main\MainViewController.designer.cs">
       <DependentUpon>MainViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Screens\TweetViewController.cs" />
-    <Compile Include="Screens\TweetViewController.designer.cs">
+    <Compile Include="Screens\Main\MainScreanTabController.cs" />
+    <Compile Include="Screens\Main\TweetsTableSource.cs" />
+    <Compile Include="Screens\Main\TweetViewController.cs" />
+    <Compile Include="Screens\Main\TweetViewController.designer.cs">
       <DependentUpon>TweetViewController.cs</DependentUpon>
     </Compile>
-    <Compile Include="Screens\TweetsTableCell.cs" />
-    <Compile Include="Screens\TweetsTableSource.cs" />
-    <Compile Include="Screens\InfoViewController.cs" />
+    <Compile Include="Screens\TweetProfile\TweetProfileController.cs" />
+    <Compile Include="Screens\Info\InfoSrolableResizebleView.cs" />
+    <Compile Include="Screens\TweetProfile\TweetProfileView.cs" />
+    <Compile Include="Services\Helpers\Fonts.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -179,7 +187,7 @@
     <ITunesArtwork Include="iTunesArtwork%402x" />
   </ItemGroup>
   <ItemGroup>
-    <InterfaceDefinition Include="Screens\MainViewController.xib" />
-    <InterfaceDefinition Include="Screens\TweetViewController.xib" />
+    <InterfaceDefinition Include="Screens\Main\MainViewController.xib" />
+    <InterfaceDefinition Include="Screens\Main\TweetViewController.xib" />
   </ItemGroup>
 </Project>

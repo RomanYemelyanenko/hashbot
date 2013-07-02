@@ -26,8 +26,8 @@ namespace HashBot
 		{
 			// create a new window instance based on the screen size
 			_window = new UIWindow (UIScreen.MainScreen.Bounds);
-			//_tabController = new MainScreanTabController ();
-			_window.RootViewController = new InfoViewController (); //_tabController;
+			_tabController = new MainScreanTabController ();
+			_window.RootViewController = _tabController;
 			// If you have defined a root view controller, set it here:
 			// window.RootViewController = myViewController;
 			

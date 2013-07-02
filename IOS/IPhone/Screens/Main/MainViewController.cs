@@ -21,7 +21,7 @@ namespace HashBot
 		static MainViewController()
 		{
 			UIActivityIndicatorView spinner = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.White);
-			_loadAlertView = new UIAlertView ("Loading", "Please wait", null, null, null);
+			_loadAlertView = new UIAlertView ("Загрузка", "!!!!!!!!", null, null, null);
 			_loadAlertView.AddSubview (spinner);
 		}
 
@@ -30,12 +30,6 @@ namespace HashBot
 			_hashTag = hashTag;
 			_searcher = searcher;
 			Title = hashTag;
-		}
-
-		public override void DidReceiveMemoryWarning ()
-		{
-			// Releases the view if it doesn't have a superview.
-			base.DidReceiveMemoryWarning ();
 		}
 
 		public override void ViewDidLoad ()
@@ -53,7 +47,7 @@ namespace HashBot
 
 			_tweetsTable.TableFooterView = footer;
 			btnLoadMore.AutoresizingMask = UIViewAutoresizing.FlexibleRightMargin | UIViewAutoresizing.FlexibleLeftMargin;
-			_tweetsTable.Source = _tableSource = new TweetsTableSource ();
+			_tweetsTable.Source = _tableSource = new TweetsTableSource (this);
 
 
 			btnLoadMore.TouchUpInside += OnLoadTweets;
@@ -61,10 +55,10 @@ namespace HashBot
 
 			NavigationItem.SetRightBarButtonItem( new UIBarButtonItem("Инфо", UIBarButtonItemStyle.Plain,
 			                                                          (sender,args) => {
-				NavigationController.PushViewController (new InfoViewController (), true);
+				NavigationController.PushViewController (new InfoViewController () { HidesBottomBarWhenPushed = true } , true);
 			}), true);
 
-			// Perform any additional setup after loading the view, typically from a nib.
+
 		}
 
 		void OnLoadTweets(object sender, EventArgs e)
