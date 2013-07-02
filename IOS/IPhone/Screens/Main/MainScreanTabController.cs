@@ -24,8 +24,6 @@ namespace HashBot
 			};
 		}
 
-
-
 		private UIViewController CreateController (string tabTitle, string tabImagePath, TwitterSearcher searcher)
 		{
 			var controller = new MainViewController (tabTitle, searcher);

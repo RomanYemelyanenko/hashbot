@@ -10,15 +10,21 @@ namespace HashBot
 		List<Tweet> _tweets = new List<Tweet>();
 		NSString cellIdentifier = new NSString("TableCell");
 		UIViewController _controller;
+		TweetProfileViewController _tweetViewController;
+
+		public TweetsTableSource() : base()
+		{
+			_tweetViewController = new TweetProfileViewController () { HidesBottomBarWhenPushed = true };
+		}
+
+		public TweetsTableSource(UIViewController controller) : this()
+		{
+			_controller = controller;
+		}
 
 		public override int RowsInSection (UITableView tableview, int section)
 		{
 			return _tweets.Count;
-		}
-
-		public TweetsTableSource(UIViewController controller)
-		{
-			_controller = controller;
 		}
 
 		public override UITableViewCell GetCell (UITableView tableView, MonoTouch.Foundation.NSIndexPath indexPath)
@@ -34,7 +40,8 @@ namespace HashBot
 		}
 		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 		{
-			_controller.NavigationController.PushViewController (new TweetProfileViewController (_tweets[indexPath.Row]) { HidesBottomBarWhenPushed = true } , true);
+			_tweetViewController.BindTweet (_tweets[indexPath.Row]); 
+			_controller.NavigationController.PushViewController ( _tweetViewController , true);
 		}
 
 		public void AddTweets(IEnumerable<Tweet> tweets)

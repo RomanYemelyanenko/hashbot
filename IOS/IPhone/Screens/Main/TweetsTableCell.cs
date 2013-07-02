@@ -22,7 +22,6 @@ namespace HashBot
 
 			_subheadingLabel = new UILabel () {
 				Font = UIFont.FromName("AmericanTypewriter", 13f),
-				//Font = Fonts.Helvetica(13)
 				TextColor = UIColor.FromRGB (137, 137, 137),
 				TextAlignment = UITextAlignment.Center,
 				BackgroundColor = UIColor.Clear

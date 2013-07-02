@@ -86,14 +86,14 @@ namespace HashBot
 			//_infoTextView.Frame.Size = _infoTextView.StringSize (_infoTextView.Text, _infoTextView.Font);
 			_infoTextView.SizeToFit ();
 
-			PointF btnLocation = new PointF (this.Bounds.Width / 4 - _buttonSize.Width / 2, _infoTextView.Frame.Top + _infoTextView.Bounds.Height);
+			PointF btnLocation = new PointF (this.Bounds.Width / 4 - _buttonSize.Width / 2, _infoTextView.Frame.Top + _infoTextView.Bounds.Height + 30);
 
 			_btnCall.Frame = new RectangleF (btnLocation, _buttonSize);
 
 			btnLocation.X += this.Bounds.Width/2;
 			_btnSendMessage.Frame = new RectangleF (btnLocation, _buttonSize);
 
-			//this.ContentSize = this.SizeThatFits(
+			this.ContentSize = new SizeF (this.ContentSize.Width, _btnSendMessage.Frame.Bottom + 30);
 		}
 
 	}

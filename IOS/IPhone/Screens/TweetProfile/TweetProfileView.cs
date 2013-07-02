@@ -15,10 +15,16 @@ namespace HashBot
 
 		public TweetProfileView ()
 		{
-			UIImage bgOriginalImage = UIImage.FromFile ("Images/Tweets/gb.png");
-			UIImage bgStretchableImage = ImageHelper.GetStretchableImage ("Images/Tweets/gb.png", 0, 0);
-			UIImageView _background = new UIImageView (bgStretchableImage);
-			
+			this.AutosizesSubviews = true;
+			this.AutoresizingMask = UIViewAutoresizing.All;
+			UIImage image = UIImage.FromFile ("Images/Tweets/bg.png");
+			UIImageView _background = new UIImageView( ImageHelper.GetStretchableImage("Images/Tweets/bg.png", (int)(image.Size.Width/2 - 1),(int)(image.Size.Height / 2 -1)));
+
+			_background.Frame = this.Frame;
+			_background.AutoresizingMask = UIViewAutoresizing.All;
+
+			this.AddSubview(_background);
+			Console.WriteLine (_background.Image.Size);
 
 			_usrImageView = new UIImageView ();
 			_userNameLabel = new UILabel ();
@@ -39,6 +45,7 @@ namespace HashBot
 			base.LayoutSubviews ();
 
 		}
+
 	}
 }
 

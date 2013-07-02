@@ -117,10 +117,6 @@
     </Compile>
     <Compile Include="Screens\Main\MainScreanTabController.cs" />
     <Compile Include="Screens\Main\TweetsTableSource.cs" />
-    <Compile Include="Screens\Main\TweetViewController.cs" />
-    <Compile Include="Screens\Main\TweetViewController.designer.cs">
-      <DependentUpon>TweetViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Screens\TweetProfile\TweetProfileController.cs" />
     <Compile Include="Screens\Info\InfoSrolableResizebleView.cs" />
     <Compile Include="Screens\TweetProfile\TweetProfileView.cs" />
@@ -188,6 +184,5 @@
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Screens\Main\MainViewController.xib" />
-    <InterfaceDefinition Include="Screens\Main\TweetViewController.xib" />
   </ItemGroup>
 </Project>
