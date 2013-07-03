@@ -94,6 +94,8 @@
     <Folder Include="Screens\Main\" />
     <Folder Include="Screens\Info\" />
     <Folder Include="Screens\TweetProfile\" />
+    <Folder Include="Views\" />
+    <Folder Include="Controllers\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -109,19 +111,19 @@
     <Compile Include="Models\TweetModel.cs" />
     <Compile Include="Models\Error.cs" />
     <Compile Include="Services\Helpers\ImageHelper.cs" />
-    <Compile Include="Screens\Info\InfoViewController.cs" />
     <Compile Include="Screens\Main\TweetsTableCell.cs" />
-    <Compile Include="Screens\Main\MainViewController.cs" />
-    <Compile Include="Screens\Main\MainViewController.designer.cs">
-      <DependentUpon>MainViewController.cs</DependentUpon>
-    </Compile>
     <Compile Include="Screens\Main\MainScreanTabController.cs" />
     <Compile Include="Screens\Main\TweetsTableSource.cs" />
-    <Compile Include="Screens\TweetProfile\TweetProfileController.cs" />
-    <Compile Include="Screens\Info\InfoSrolableResizebleView.cs" />
-    <Compile Include="Screens\TweetProfile\TweetProfileView.cs" />
     <Compile Include="Services\Helpers\Fonts.cs" />
     <Compile Include="Screens\Main\RowSelectedEventArgs.cs" />
+    <Compile Include="Controllers\InfoViewController.cs" />
+    <Compile Include="Controllers\MainViewController.cs" />
+    <Compile Include="Controllers\MainViewController.designer.cs">
+      <DependentUpon>MainViewController.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Controllers\TweetProfileController.cs" />
+    <Compile Include="Views\TweetProfileView.cs" />
+    <Compile Include="Views\InfoSrolableResizebleView.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -184,6 +186,6 @@
     <ITunesArtwork Include="iTunesArtwork%402x" />
   </ItemGroup>
   <ItemGroup>
-    <InterfaceDefinition Include="Screens\Main\MainViewController.xib" />
+    <InterfaceDefinition Include="Controllers\MainViewController.xib" />
   </ItemGroup>
 </Project>

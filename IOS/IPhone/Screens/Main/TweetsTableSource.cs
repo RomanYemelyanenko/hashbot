@@ -25,10 +25,7 @@ namespace HashBot
 			var cell = tableView.DequeueReusableCell (cellIdentifier) as TweetsTableCell;
 			if (cell == null)
 				cell = new TweetsTableCell (cellIdentifier);
-			cell.UpdateCell (_tweets[indexPath.Row].user.name, 
-			                 _tweets[indexPath.Row].text, 
-			                 UIImage.FromFile("Images/Main/avatar.png"),
-			                 DateTime.Parse (_tweets[indexPath.Row].createdAt ) );
+			cell.UpdateCell (_tweets[indexPath.Row]);
 			return cell;
 		}
 
