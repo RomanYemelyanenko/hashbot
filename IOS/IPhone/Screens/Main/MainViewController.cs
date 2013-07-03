@@ -16,20 +16,22 @@ namespace HashBot
 		private int _tweetsPerPage = 15;
 		private TweetsTableSource _tableSource;
 		private static UIAlertView _loadAlertView;
-
+		private TweetProfileViewController _tweetViewController;
 
 		static MainViewController()
 		{
 			UIActivityIndicatorView spinner = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.White);
 			_loadAlertView = new UIAlertView ("Загрузка", "!!!!!!!!", null, null, null);
 			_loadAlertView.AddSubview (spinner);
-		}
+			}
 
 		public MainViewController (string hashTag, TwitterSearcher searcher) : base ("MainViewController", null)
 		{
 			_hashTag = hashTag;
 			_searcher = searcher;
 			Title = hashTag;
+			_tweetViewController = new TweetProfileViewController () { HidesBottomBarWhenPushed = true };
+
 		}
 
 		public override void ViewDidLoad ()
@@ -47,8 +49,12 @@ namespace HashBot
 
 			_tweetsTable.TableFooterView = footer;
 			btnLoadMore.AutoresizingMask = UIViewAutoresizing.FlexibleRightMargin | UIViewAutoresizing.FlexibleLeftMargin;
-			_tweetsTable.Source = _tableSource = new TweetsTableSource (this);
+			_tweetsTable.Source = _tableSource = new TweetsTableSource ();
 
+			_tableSource.RowSelectedEvent += (sender,e) => {
+				_tweetViewController.BindTweet (e.Tweet); 
+				this.NavigationController.PushViewController ( _tweetViewController , true);
+			};
 
 			btnLoadMore.TouchUpInside += OnLoadTweets;
 			OnLoadTweets (new object(), new EventArgs ());

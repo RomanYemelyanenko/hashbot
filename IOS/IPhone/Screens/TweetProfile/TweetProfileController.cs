@@ -7,16 +7,21 @@ namespace HashBot
 {
 	public class TweetProfileViewController : UIViewController
 	{
+		private TweetProfileView _view;
 
 		public TweetProfileViewController ()
 		{
 			Title = "Твит";
+			_view = new TweetProfileView();
+			_view.Frame = new RectangleF (0, 0, this.View.Frame.Width, this.View.Frame.Height);
+			_view.AutoresizingMask = UIViewAutoresizing.All;
+
+			this.View.AddSubview (_view);
 		}
 
 		public void BindTweet(Tweet tweet)
 		{ 
-			this.View = new TweetProfileView(tweet);
-			//NavigationItem.LeftBarButtonItem.Title = "Твиты";
+			_view.BindTweet (tweet);
 		}
 
 		public override void ViewDidLoad ()

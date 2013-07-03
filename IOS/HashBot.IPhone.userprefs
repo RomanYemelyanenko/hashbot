@@ -1,31 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhone.6.1" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="IPhone/Screens/MainViewController.cs">
-    <Files>
-      <File FileName="IPhone/Screens/MainScreanTabController.cs" Line="23" Column="64" />
-      <File FileName="IPhone/Screens/MainViewController.cs" Line="59" Column="1" />
-      <File FileName="IPhone/Screens/TweetsTableCell.cs" Line="13" Column="35" />
-      <File FileName="IPhone/Screens/TweetsTableSource.cs" Line="21" Column="4" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
-          <Node name="HashBot.IPhone" expanded="True">
-            <Node name="References" expanded="True" />
-            <Node name="Screens" expanded="True">
-              <Node name="MainViewController.cs" selected="True" />
-            </Node>
-            <Node name="Services" expanded="True" />
-          </Node>
+          <Node name="HashBot.IPhone" expanded="True" />
         </State>
       </Pad>
     </Pads>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore>
-      <Breakpoint file="/Users/Superman/projects/HashBot/IOS/IPhone/Screens/MainViewController.cs" line="56" column="1" />
-      <Breakpoint file="/Users/Superman/projects/HashBot/IOS/IPhone/Screens/MainViewController.cs" line="58" column="1" />
-    </BreakpointStore>
+    <BreakpointStore />
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>

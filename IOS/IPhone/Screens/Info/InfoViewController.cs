@@ -8,26 +8,48 @@ namespace HashBot
 {
 	public class InfoViewController : UIViewController
 	{
+		private InfoSrolableResizebleView _view;
 
-		public InfoViewController () : base ("InfoVievController", null)
+		public InfoViewController () 
 		{
+			Title = "Инфо";
 		}
 
 		public override void DidReceiveMemoryWarning ()
 		{
-			// Releases the view if it doesn't have a superview.
 			base.DidReceiveMemoryWarning ();
-
-			// Release any cached data, images, etc that aren't in use.
 		}
 
 
 		public override void ViewDidLoad ()
 		{
-
 			base.ViewDidLoad ();
-			View.AddSubview (new InfoSrolableResizebleView( new RectangleF(0,0, View.Bounds.Width, View.Bounds.Height), this));
-			// Perform any additional setup after loading the view, typically from a nib.
+
+			View.AddSubview (this.InfoView);
+		}
+
+		private InfoSrolableResizebleView InfoView
+		{
+			get {
+				if (_view == null) {
+					_view = new InfoSrolableResizebleView (new RectangleF(0,0, View.Bounds.Width, View.Bounds.Height), this);
+					_view.Call.TouchUpInside += (sender, e) => { 
+						UIApplication.SharedApplication.OpenUrl (new NSUrl ("tel:8-812-309-3879"));
+					};
+
+					_view.SendMessage.TouchUpInside += (sender, e) => 
+					{
+						if (MFMailComposeViewController.CanSendMail) {
+							var mailController = new MFMailComposeViewController ();
+							mailController.SetToRecipients (new string[] { "hello@touchin.ru" });
+							mailController.Finished += (finishSender, finishE) => { finishE.Controller.DismissViewController (true, null); };
+							this.PresentViewController (mailController, true, null);
+						}
+					};
+				}
+				return _view;
+			}
+
 		}
 	}
 }

@@ -17,7 +17,7 @@ namespace HashBot
 		private int _leftAndRigthOfsets;
 		private int _topAndBottomOfsets;
 
-		public TweetProfileView (Tweet tweet)
+		public TweetProfileView ()
 		{
 			this.AutosizesSubviews = true;
 			this.AutoresizingMask = UIViewAutoresizing.All;
@@ -26,12 +26,12 @@ namespace HashBot
 
 			this.BackgroundColor = backgroundColor;
 
-			_userImageView = new UIImageView ( ImageHelper.LoadImageFromUrl (tweet.user.profileImageUrlHttps));
+			_userImageView = new UIImageView ();
 			_userImageView.BackgroundColor = backgroundColor;
 			this.AddSubview (_userImageView);
 
 			_userNameLabel = new UILabel ();
-			_userNameLabel.Text = tweet.user.name;
+
 			_userNameLabel.BackgroundColor = backgroundColor;
 			_userNameLabel.Font = Fonts.HelveticaNeueBold (16);
 			_userNameLabel.TextColor = UIColor.FromRGB (0x44, 0x64, 0x8f);
@@ -39,14 +39,14 @@ namespace HashBot
 			this.AddSubview (_userNameLabel);
 
 			_sourseLabel = new UILabel ();
-			_sourseLabel.Text = tweet.source;
+
 			_sourseLabel.BackgroundColor = backgroundColor;
 			_sourseLabel.Font = Fonts.HelveticaNeueBold (12);
 			_sourseLabel.TextColor = UIColor.FromRGB (0x41, 0x41, 0x41);
 			this.AddSubview (_sourseLabel);
 
 			_tweetTextView = new UITextView ();
-			_tweetTextView.Text = tweet.text;
+
 			_tweetTextView.BackgroundColor = backgroundColor;
 			_tweetTextView.Font = Fonts.HelveticaNeue (12);
 			_tweetTextView.TextColor = UIColor.FromRGB (0x41, 0x41, 0x41);
@@ -59,18 +59,28 @@ namespace HashBot
 			this.AddSubview (_delimiterLine);
 
 			_createdLable = new UILabel ();
-			_createdLable.Text = String.Format ("{0:dd.MM.yyyy}", DateTime.Parse(tweet.createdAt));
+
 			_createdLable.BackgroundColor = backgroundColor;
 			_createdLable.Font = Fonts.HelveticaNeue (10);
 			_createdLable.TextColor = UIColor.FromRGB (0x77, 0x77, 0x77);
 			this.AddSubview (_createdLable);
 
 			_urlLable = new UILabel ();
-			_urlLable.Text = "http://tweeter.com/" + tweet.user.screenName;
+
 			_urlLable.BackgroundColor = backgroundColor;
 			_urlLable.Font = Fonts.HelveticaNeue (10);
 			_urlLable.TextColor = UIColor.FromRGB (0x77, 0x77, 0x77);
 			this.AddSubview (_urlLable);
+		}
+
+		public void BindTweet(Tweet tweet)
+		{
+			_userImageView.Image = ImageHelper.LoadImageFromUrl (tweet.user.profileImageUrlHttps);
+			_userNameLabel.Text = tweet.user.name;
+			_sourseLabel.Text = tweet.source;
+			_tweetTextView.Text = tweet.text;
+			_createdLable.Text = String.Format ("{0:dd.MM.yyyy}", DateTime.Parse(tweet.createdAt));
+			_urlLable.Text = "http://tweeter.com/" + tweet.user.screenName;
 		}
 
 		public override void LayoutSubviews ()

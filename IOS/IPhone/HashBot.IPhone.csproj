@@ -121,6 +121,7 @@
     <Compile Include="Screens\Info\InfoSrolableResizebleView.cs" />
     <Compile Include="Screens\TweetProfile\TweetProfileView.cs" />
     <Compile Include="Services\Helpers\Fonts.cs" />
+    <Compile Include="Screens\Main\RowSelectedEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

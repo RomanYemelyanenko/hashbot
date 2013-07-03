@@ -19,7 +19,7 @@ namespace HashBot
 		public InfoSrolableResizebleView(RectangleF viewArea, UIViewController controller) : base(viewArea)
 		{
 			_controller = controller;
-
+			this.BackgroundColor = UIColor.FromRGB (0xFF,0xFF,0xFF);
 			this.Frame = viewArea;
 			this.ContentSize = viewArea.Size;
 			this.AutoresizingMask = UIViewAutoresizing.All;
@@ -41,7 +41,8 @@ namespace HashBot
 			_infoTextView.Editable = false;
 			_infoTextView.Text = "Нам не стыдно за выпускаемые продукты, все они сделаны с вниманием к деталям. Пользователи это ценят, многие наши приложения попадают в топы AppStore и получают высокие оценки. \n\nМы любим своих заказчиков и решаем их задачи. На письма и телефон отвечаем быстро, по праздникам и выходным, делаем работу в срок и никуда не пропадаем.\nЗакажите разработку сейчас! ";
 			_infoTextView.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
-
+			_infoTextView.Font = Fonts.HelveticaNeue (10);
+			_infoTextView.TextColor = UIColor.FromRGB (0x41,0x41,0x41);
 			this.AddSubview (_infoTextView);
 
 			_btnCall = new UIButton (UIButtonType.RoundedRect);
@@ -55,19 +56,7 @@ namespace HashBot
 			_btnSendMessage.SetBackgroundImage (backgroundNormalImage, UIControlState.Normal);
 			_btnSendMessage.SetBackgroundImage (backgroundHighlightedImage, UIControlState.Highlighted);
 			_btnSendMessage.ImageEdgeInsets = new UIEdgeInsets(0,0,10,0);
-			_btnCall.TouchUpInside += (sender, e) => { 
-				UIApplication.SharedApplication.OpenUrl (new NSUrl ("tel:8-812-309-3879"));
-			};
 
-			_btnSendMessage.TouchUpInside += (sender, e) => 
-			{
-				if (MFMailComposeViewController.CanSendMail) {
-					var mailController = new MFMailComposeViewController ();
-					mailController.SetToRecipients (new string[] { "hello@touchin.ru" });
-					mailController.Finished += (finishSender, finishE) => { finishE.Controller.DismissViewController (true, null); };
-					_controller.PresentViewController (mailController, true, null);
-				}
-			};
 			this.AddSubview (_btnCall);
 			this.AddSubview (_btnSendMessage);
 
@@ -90,6 +79,16 @@ namespace HashBot
 			_btnSendMessage.Frame = new RectangleF (btnLocation, _buttonSize);
 
 			this.ContentSize = new SizeF (this.ContentSize.Width, _btnSendMessage.Frame.Bottom + 30);
+		}
+
+		public UIButton SendMessage
+		{
+			get { return _btnSendMessage; } 
+		}
+
+		public UIButton Call
+		{
+			get { return _btnCall; }
 		}
 
 	}

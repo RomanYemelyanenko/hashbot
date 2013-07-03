@@ -7,20 +7,13 @@ namespace HashBot
 {
 	public class TweetsTableSource : UITableViewSource
 	{
-		List<Tweet> _tweets = new List<Tweet>();
-		NSString cellIdentifier = new NSString("TableCell");
-		UIViewController _controller;
-		TweetProfileViewController _tweetViewController;
 
-		public TweetsTableSource() : base()
-		{
-			_tweetViewController = new TweetProfileViewController () { HidesBottomBarWhenPushed = true };
-		}
+		private List<Tweet> _tweets = new List<Tweet>();
+		private NSString cellIdentifier = new NSString("TableCell");
 
-		public TweetsTableSource(UIViewController controller) : this()
-		{
-			_controller = controller;
-		}
+		public delegate void EventHandler(object sender, RowSelectedEventArgs e);
+		private event EventHandler _rowSelected;
+
 
 		public override int RowsInSection (UITableView tableview, int section)
 		{
@@ -38,11 +31,18 @@ namespace HashBot
 			                 DateTime.Parse (_tweets[indexPath.Row].createdAt ) );
 			return cell;
 		}
+
 		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 		{
-			_tweetViewController.BindTweet (_tweets[indexPath.Row]); 
-			_controller.NavigationController.PushViewController ( _tweetViewController , true);
+			_rowSelected (this, new RowSelectedEventArgs (_tweets[indexPath.Row]));
 		}
+
+		public EventHandler RowSelectedEvent
+		{
+			get { return _rowSelected; }
+			set { _rowSelected = value; }
+		}
+
 
 		public void AddTweets(IEnumerable<Tweet> tweets)
 		{
