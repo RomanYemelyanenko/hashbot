@@ -8,8 +8,6 @@ namespace HashBot
 {
 	public class InfoSrolableResizebleView : UIScrollView
 	{
-		private UIViewController _controller;
-
 		private UIImageView _logoImageView;
 		private UITextView _infoTextView;
 		private UIButton _btnCall;
@@ -18,7 +16,6 @@ namespace HashBot
 
 		public InfoSrolableResizebleView(RectangleF viewArea, UIViewController controller) : base(viewArea)
 		{
-			_controller = controller;
 			this.BackgroundColor = UIColor.FromRGB (0xFF,0xFF,0xFF);
 			this.Frame = viewArea;
 			this.ContentSize = viewArea.Size;
@@ -59,7 +56,6 @@ namespace HashBot
 
 			this.AddSubview (_btnCall);
 			this.AddSubview (_btnSendMessage);
-
 		}
 
 		public override void LayoutSubviews ()

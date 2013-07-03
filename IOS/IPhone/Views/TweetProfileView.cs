@@ -50,6 +50,7 @@ namespace HashBot
 			_tweetTextView.BackgroundColor = backgroundColor;
 			_tweetTextView.Font = Fonts.HelveticaNeue (12);
 			_tweetTextView.TextColor = UIColor.FromRGB (0x41, 0x41, 0x41);
+			_tweetTextView.Editable = false;
 			this.AddSubview (_tweetTextView);
 
 			UIImage originalImage = UIImage.FromFile ("Images/Tweets/line.png");
@@ -75,7 +76,7 @@ namespace HashBot
 
 		public void BindTweet(Tweet tweet)
 		{
-			_userImageView.Image = ImageHelper.LoadImageFromUrl (tweet.user.profileImageUrlHttps);
+			_userImageView.Image = ImageHelper.LoadImageFromUrl (tweet.user.profileImageUrl);
 			_userNameLabel.Text = tweet.user.name;
 			_sourseLabel.Text = tweet.source;
 			_tweetTextView.Text = tweet.text;

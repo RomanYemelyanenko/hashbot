@@ -4,6 +4,7 @@ using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using System.Threading;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace HashBot
 {
@@ -20,18 +21,25 @@ namespace HashBot
 
 		static MainViewController()
 		{
+			_loadAlertView = new UIAlertView ("HashBot", "Загрузка данных...", null, null, null);
 			UIActivityIndicatorView spinner = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.White);
-			_loadAlertView = new UIAlertView ("Загрузка", "!!!!!!!!", null, null, null);
+			_loadAlertView.Presented += (object sender, EventArgs e) => {
+				spinner.Center = new PointF(_loadAlertView.Bounds.Width / 2, _loadAlertView.Frame.Height / 2 + 10);
+			};
+
+
+			spinner.StartAnimating ();
+
 			_loadAlertView.AddSubview (spinner);
-			}
+		}
 
 		public MainViewController (string hashTag, TwitterSearcher searcher) : base ("MainViewController", null)
 		{
 			_hashTag = hashTag;
 			_searcher = searcher;
 			Title = hashTag;
-			_tweetViewController = new TweetProfileViewController () { HidesBottomBarWhenPushed = true };
 
+			_tweetViewController = new TweetProfileViewController () { HidesBottomBarWhenPushed = true };
 		}
 
 		public override void ViewDidLoad ()
@@ -59,12 +67,24 @@ namespace HashBot
 			btnLoadMore.TouchUpInside += OnLoadTweets;
 			OnLoadTweets (new object(), new EventArgs ());
 
-			NavigationItem.SetRightBarButtonItem( new UIBarButtonItem("Инфо", UIBarButtonItemStyle.Plain,
-			                                                          (sender,args) => {
-				NavigationController.PushViewController (new InfoViewController () { HidesBottomBarWhenPushed = true } , true);
-			}), true);
+			var titleAttributes = new UITextAttributes ();
+			titleAttributes.Font = Fonts.HelveticaNeueBold (10);
+			titleAttributes.TextColor = UIColor.FromRGB (255, 255, 255);
+			TabBarItem.SetTitleTextAttributes (titleAttributes, UIControlState.Normal);
+
+			NavigationItem.SetRightBarButtonItem( new UIBarButtonItem ("Инфо", UIBarButtonItemStyle.Plain,
+			                                                           (sender,args) => {
+				NavigationController.PushViewController (new InfoViewController () { HidesBottomBarWhenPushed = true }, true);
+			}) , true);
 
 
+			var infoAttributes = new UITextAttributes ();
+			infoAttributes.Font = Fonts.HelveticaNeueBold (12);
+			infoAttributes.TextColor = UIColor.FromRGB (255, 255, 255);
+			infoAttributes.TextShadowColor = UIColor.FromRGB (0, 0, 0);
+			infoAttributes.TextShadowOffset = new UIOffset (0,2);
+
+			NavigationItem.RightBarButtonItem.SetTitleTextAttributes (infoAttributes, UIControlState.Normal);
 		}
 
 		void OnLoadTweets(object sender, EventArgs e)

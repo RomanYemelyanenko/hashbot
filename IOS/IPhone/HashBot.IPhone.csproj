@@ -84,16 +84,12 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
-    <Folder Include="Screens\" />
     <Folder Include="Models\" />
     <Folder Include="Services\" />
     <Folder Include="Services\TwitterAuthorization\" />
     <Folder Include="Services\TwitterSearcher\" />
     <Folder Include="Services\Helpers\" />
     <Folder Include="Resources\Images\" />
-    <Folder Include="Screens\Main\" />
-    <Folder Include="Screens\Info\" />
-    <Folder Include="Screens\TweetProfile\" />
     <Folder Include="Views\" />
     <Folder Include="Controllers\" />
   </ItemGroup>
@@ -111,11 +107,7 @@
     <Compile Include="Models\TweetModel.cs" />
     <Compile Include="Models\Error.cs" />
     <Compile Include="Services\Helpers\ImageHelper.cs" />
-    <Compile Include="Screens\Main\TweetsTableCell.cs" />
-    <Compile Include="Screens\Main\MainScreanTabController.cs" />
-    <Compile Include="Screens\Main\TweetsTableSource.cs" />
     <Compile Include="Services\Helpers\Fonts.cs" />
-    <Compile Include="Screens\Main\RowSelectedEventArgs.cs" />
     <Compile Include="Controllers\InfoViewController.cs" />
     <Compile Include="Controllers\MainViewController.cs" />
     <Compile Include="Controllers\MainViewController.designer.cs">
@@ -124,6 +116,10 @@
     <Compile Include="Controllers\TweetProfileController.cs" />
     <Compile Include="Views\TweetProfileView.cs" />
     <Compile Include="Views\InfoSrolableResizebleView.cs" />
+    <Compile Include="Controllers\MainScreanTabController.cs" />
+    <Compile Include="Views\TweetsTableCell.cs" />
+    <Compile Include="Controllers\TweetsTableSource.cs" />
+    <Compile Include="Controllers\RowSelectedEventArgs.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -41,7 +41,7 @@ namespace HashBot
 		}
 
 
-		public void AddTweets(IEnumerable<Tweet> tweets)
+		public void AddTweets(List<Tweet> tweets)
 		{
 			_tweets.AddRange (tweets);
 		}

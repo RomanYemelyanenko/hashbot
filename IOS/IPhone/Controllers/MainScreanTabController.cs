@@ -22,13 +22,20 @@ namespace HashBot
 				CreateController ("#Apple","Images/TabBar/icon_apple.png", searcher),
 				CreateController ("#GitHub","Images/TabBar/icon_github.png", searcher)
 			};
+
+			var titleAttributes = new UITextAttributes ();
+			titleAttributes.Font = Fonts.HelveticaNeueBold (13);
+			titleAttributes.TextColor = UIColor.FromRGB (255, 255, 255);
+			this.TabBarItem.SetTitleTextAttributes (titleAttributes, UIControlState.Normal);
 		}
 
 		private UIViewController CreateController (string tabTitle, string tabImagePath, TwitterSearcher searcher)
 		{
+
+
 			var controller = new MainViewController (tabTitle, searcher);
 			controller.TabBarItem.Image = UIImage.FromFile (tabImagePath);
-			controller.View.BackgroundColor = UIColor.Green;
+
 
 			var navController = new UINavigationController (controller);
 
