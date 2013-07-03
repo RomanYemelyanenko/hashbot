@@ -25,7 +25,6 @@ namespace HashBot
 			this.AutoresizingMask = UIViewAutoresizing.All;
 
 			_logoImageView = new UIImageView (new UIImage ("Images/Info/logo.png"));
-			//_logoImageView.AutoresizingMask = UIViewAutoresizing.All ^ UIViewAutoresizing.FlexibleWidth ^ UIViewAutoresizing.FlexibleHeight;
 
 			UIImage originalNormalImage = new UIImage ("Images/Info/button.png");
 			UIImage originalHighlightedImage = new UIImage ("Images/Info/button_pressed.png");
@@ -78,19 +77,16 @@ namespace HashBot
 		{
 			base.LayoutSubviews ();
 
-
-			_logoImageView.Frame = new RectangleF (new PointF(this.Bounds.Width/2 - _logoImageView.Bounds.Width/2, 10), _logoImageView.Bounds.Size);
-
+			_logoImageView.Frame = new RectangleF (new PointF(this.Bounds.Width / 2 - _logoImageView.Bounds.Width / 2, 10), _logoImageView.Bounds.Size);
 
 			_infoTextView.Frame = new RectangleF(30, _logoImageView.Bounds.Bottom + 30 ,this.Bounds.Width - 30 * 2, 200);
-			//_infoTextView.Frame.Size = _infoTextView.StringSize (_infoTextView.Text, _infoTextView.Font);
 			_infoTextView.SizeToFit ();
 
 			PointF btnLocation = new PointF (this.Bounds.Width / 4 - _buttonSize.Width / 2, _infoTextView.Frame.Top + _infoTextView.Bounds.Height + 30);
 
 			_btnCall.Frame = new RectangleF (btnLocation, _buttonSize);
 
-			btnLocation.X += this.Bounds.Width/2;
+			btnLocation.X += this.Bounds.Width / 2;
 			_btnSendMessage.Frame = new RectangleF (btnLocation, _buttonSize);
 
 			this.ContentSize = new SizeF (this.ContentSize.Width, _btnSendMessage.Frame.Bottom + 30);

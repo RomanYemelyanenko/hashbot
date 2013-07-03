@@ -1,48 +1,108 @@
 using System;
 using MonoTouch.UIKit;
+using System.Drawing;
 
 namespace HashBot
 {
 	public class TweetProfileView : UIScrollView
 	{
-		UIImageView _background;
-		UIImageView _usrImageView;
-		UILabel _userNameLabel;
-		UILabel _sourseLabel;
-		UITextView _tweetTextView;
-		UIImageView _delimiterLine;
-		UILabel _createdandUrlLable;
+		private UIImageView _userImageView;
+		private UILabel _userNameLabel;
+		private UILabel _sourseLabel;
+		private UITextView _tweetTextView;
+		private UIImageView _delimiterLine;
+		private UILabel _createdLable;
+		private UILabel _urlLable;
 
-		public TweetProfileView ()
+		private int _leftAndRigthOfsets;
+		private int _topAndBottomOfsets;
+
+		public TweetProfileView (Tweet tweet)
 		{
 			this.AutosizesSubviews = true;
 			this.AutoresizingMask = UIViewAutoresizing.All;
-			UIImage image = UIImage.FromFile ("Images/Tweets/bg.png");
-			UIImageView _background = new UIImageView( ImageHelper.GetStretchableImage("Images/Tweets/bg.png", (int)(image.Size.Width/2 - 1),(int)(image.Size.Height / 2 -1)));
+			UIColor backgroundColor = UIColor.FromPatternImage (UIImage.FromBundle("Images/Tweets/bg.png"));
 
-			_background.Frame = this.Frame;
-			_background.AutoresizingMask = UIViewAutoresizing.All;
 
-			this.AddSubview(_background);
-			Console.WriteLine (_background.Image.Size);
+			this.BackgroundColor = backgroundColor;
 
-			_usrImageView = new UIImageView ();
+			_userImageView = new UIImageView ( ImageHelper.LoadImageFromUrl (tweet.user.profileImageUrlHttps));
+			_userImageView.BackgroundColor = backgroundColor;
+			this.AddSubview (_userImageView);
+
 			_userNameLabel = new UILabel ();
-			_sourseLabel = new UILabel ();
-			_tweetTextView = new UITextView ();
+			_userNameLabel.Text = tweet.user.name;
+			_userNameLabel.BackgroundColor = backgroundColor;
+			_userNameLabel.Font = Fonts.HelveticaNeueBold (16);
+			_userNameLabel.TextColor = UIColor.FromRGB (0x44, 0x64, 0x8f);
+			_userNameLabel.AutoresizingMask = UIViewAutoresizing.None;
+			this.AddSubview (_userNameLabel);
 
+			_sourseLabel = new UILabel ();
+			_sourseLabel.Text = tweet.source;
+			_sourseLabel.BackgroundColor = backgroundColor;
+			_sourseLabel.Font = Fonts.HelveticaNeueBold (12);
+			_sourseLabel.TextColor = UIColor.FromRGB (0x41, 0x41, 0x41);
+			this.AddSubview (_sourseLabel);
+
+			_tweetTextView = new UITextView ();
+			_tweetTextView.Text = tweet.text;
+			_tweetTextView.BackgroundColor = backgroundColor;
+			_tweetTextView.Font = Fonts.HelveticaNeue (12);
+			_tweetTextView.TextColor = UIColor.FromRGB (0x41, 0x41, 0x41);
+			this.AddSubview (_tweetTextView);
 
 			UIImage originalImage = UIImage.FromFile ("Images/Tweets/line.png");
-			UIImage lineStretchableImage = ImageHelper.GetStretchableImage ("Images/Tweets/line.png", (int)(originalImage.Size.Width/2 -1), (int)(originalImage.Size.Height/2));
+			UIImage lineStretchableImage = ImageHelper.GetStretchableImage ("Images/Tweets/line.png", (int)(originalImage.Size.Width/2 -1), (int)(originalImage.Size.Height / 2));
 			_delimiterLine = new UIImageView (lineStretchableImage);
-			_delimiterLine.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleLeftMargin | UIViewAutoresizing.FlexibleRightMargin;
+			_delimiterLine.AutoresizingMask = UIViewAutoresizing.None;
+			this.AddSubview (_delimiterLine);
 
-			_createdandUrlLable = new UILabel ();
+			_createdLable = new UILabel ();
+			_createdLable.Text = String.Format ("{0:dd.MM.yyyy}", DateTime.Parse(tweet.createdAt));
+			_createdLable.BackgroundColor = backgroundColor;
+			_createdLable.Font = Fonts.HelveticaNeue (10);
+			_createdLable.TextColor = UIColor.FromRGB (0x77, 0x77, 0x77);
+			this.AddSubview (_createdLable);
+
+			_urlLable = new UILabel ();
+			_urlLable.Text = "http://tweeter.com/" + tweet.user.screenName;
+			_urlLable.BackgroundColor = backgroundColor;
+			_urlLable.Font = Fonts.HelveticaNeue (10);
+			_urlLable.TextColor = UIColor.FromRGB (0x77, 0x77, 0x77);
+			this.AddSubview (_urlLable);
 		}
 
 		public override void LayoutSubviews ()
 		{
+
 			base.LayoutSubviews ();
+			_leftAndRigthOfsets = (int)(this.Bounds.Width * 0.1);
+			_topAndBottomOfsets = (int)(this.Bounds.Height * 0.1);
+
+			float workWidth = this.Bounds.Width - _leftAndRigthOfsets * 2;
+
+			_userImageView.Frame = new RectangleF (_leftAndRigthOfsets, _topAndBottomOfsets, _userImageView.Image.Size.Width, _userImageView.Image.Size.Height); 
+
+			_userNameLabel.Bounds = new RectangleF (0, 0, workWidth - _leftAndRigthOfsets - _userImageView.Bounds.Width, 16);
+			_userNameLabel.Center = new PointF (_userImageView.Frame.Right + _userNameLabel.Bounds.Width / 2 + _leftAndRigthOfsets, _userImageView.Frame.Bottom - _userImageView.Bounds.Height / 2 );
+
+			_sourseLabel.Bounds = new RectangleF (0, 0, workWidth - _leftAndRigthOfsets  - _userImageView.Bounds.Width, 16);
+			_sourseLabel.Center = new PointF (_userImageView.Frame.Right + _userNameLabel.Bounds.Width / 2 + _leftAndRigthOfsets, _userImageView.Frame.Bottom - 6 );
+
+
+			_tweetTextView.Frame = new RectangleF (_leftAndRigthOfsets, _userImageView.Frame.Bottom + _topAndBottomOfsets, workWidth , 200);
+			_tweetTextView.SizeToFit ();
+
+			_delimiterLine.Frame = new RectangleF (_leftAndRigthOfsets, _tweetTextView.Frame.Bottom, 20, _delimiterLine.Image.Size.Height);
+
+			_createdLable.Frame = new RectangleF (_leftAndRigthOfsets, _delimiterLine.Frame.Bottom + 10, workWidth, 10);
+			_createdLable.SizeToFit ();
+
+			_urlLable.Frame = new RectangleF (_createdLable.Frame.Right + 20, _delimiterLine.Frame.Bottom + 10, workWidth, 10);
+			_urlLable.SizeToFit ();
+
+			_delimiterLine.Frame = new RectangleF (_delimiterLine.Frame.Left, _delimiterLine.Frame.Top, _urlLable.Frame.Right - _createdLable.Frame.Left, _delimiterLine.Frame.Height);
 
 		}
 

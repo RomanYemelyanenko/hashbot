@@ -16,7 +16,6 @@ namespace HashBot
 		private int _tweetsPerPage = 15;
 		private TweetsTableSource _tableSource;
 		private static UIAlertView _loadAlertView;
-		private TweetProfileViewController _tweetController;
 
 
 		static MainViewController()

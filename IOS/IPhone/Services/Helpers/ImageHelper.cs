@@ -8,16 +8,12 @@ namespace HashBot
 	{
 		public static UIImage GetStretchableImage(string image,int leftCapWidth, int topCapHeight)
 		{
-			UIImage originalImage = new UIImage (image);
-			UIImage resultImage = UIImage.FromBundle (image).StretchableImage (leftCapWidth, topCapHeight);
-
-			return resultImage;
+				return UIImage.FromBundle (image).StretchableImage (leftCapWidth, topCapHeight);
 		}
 
 		public static UIImage LoadImageFromUrl(string weburl)
 		{
-			NSUrl nsUrl = new NSUrl(weburl);
-			NSData imgdata = NSData.FromUrl(nsUrl);
+			NSData imgdata = NSData.FromUrl(new NSUrl(weburl));
 			return new UIImage(imgdata);
 		}
 	}
