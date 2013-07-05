@@ -59,8 +59,8 @@ namespace HashBot
 			btnLoadMore.AutoresizingMask = UIViewAutoresizing.FlexibleRightMargin | UIViewAutoresizing.FlexibleLeftMargin;
 			_tweetsTable.Source = _tableSource = new TweetsTableSource ();
 
-			_tableSource.RowSelectedEvent += (sender,e) => {
-				_tweetViewController.BindTweet (e.Tweet); 
+			_tableSource.RowSelectedEvent += (Tweet) => {
+				_tweetViewController.BindTweet (Tweet); 
 				this.NavigationController.PushViewController ( _tweetViewController , true);
 			};
 

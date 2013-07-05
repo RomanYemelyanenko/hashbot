@@ -49,12 +49,12 @@ namespace HashBot
 			ContentView.Add (_createdLable);
 			ContentView.Add (_imageView);
 		}
-		public void UpdateCell (Tweet tweet)
+		public void UpdateCell (UIImage profileImage, string name, string text, DateTime created)//  Tweet tweet)
 		{
-			_imageView.Image = ImageHelper.LoadImageFromUrl(tweet.user.profileImageUrl); 
-			_headingLabel.Text = tweet.user.name;
-			_subheadingLabel.Text = tweet.text;
-			_createdLable.Text = ParseDate (DateTime.Parse (tweet.createdAt ));
+			_imageView.Image = profileImage; //ImageHelper.LoadImageFromUrl(tweet.user.profileImageUrl); 
+			_headingLabel.Text = name; // tweet.user.name;
+			_subheadingLabel.Text = text;// tweet.text;
+			_createdLable.Text = ParseDate (created); // ParseDate (DateTime.Parse (tweet.createdAt ));
 		}
 
 		public string ParseDate(DateTime date)

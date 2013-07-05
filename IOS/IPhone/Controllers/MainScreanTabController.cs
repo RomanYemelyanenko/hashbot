@@ -31,11 +31,8 @@ namespace HashBot
 
 		private UIViewController CreateController (string tabTitle, string tabImagePath, TwitterSearcher searcher)
 		{
-
-
 			var controller = new MainViewController (tabTitle, searcher);
 			controller.TabBarItem.Image = UIImage.FromFile (tabImagePath);
-
 
 			var navController = new UINavigationController (controller);
 

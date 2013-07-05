@@ -2,6 +2,8 @@ using System;
 using MonoTouch.UIKit;
 using MonoTouch.Foundation;
 using System.Collections.Generic;
+using System.IO;
+using System.Linq;
 
 namespace HashBot
 {
@@ -9,11 +11,14 @@ namespace HashBot
 	{
 
 		private List<Tweet> _tweets = new List<Tweet>();
-		private NSString cellIdentifier = new NSString("TableCell");
+		private NSString _cellIdentifier = new NSString("TableCell");
 
-		public delegate void EventHandler(object sender, RowSelectedEventArgs e);
-		private event EventHandler _rowSelected;
+		private static string _documents = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments);
+		private static string _tmpPath = Path.Combine (_documents, "..", "tmp");
 
+		private DirectoryInfo _tempDir = new DirectoryInfo (_tmpPath);
+
+		public event Action<Tweet> RowSelectedEvent;
 
 		public override int RowsInSection (UITableView tableview, int section)
 		{
@@ -22,24 +27,50 @@ namespace HashBot
 
 		public override UITableViewCell GetCell (UITableView tableView, MonoTouch.Foundation.NSIndexPath indexPath)
 		{
-			var cell = tableView.DequeueReusableCell (cellIdentifier) as TweetsTableCell;
+			var cell = tableView.DequeueReusableCell (_cellIdentifier) as TweetsTableCell;
 			if (cell == null)
-				cell = new TweetsTableCell (cellIdentifier);
-			cell.UpdateCell (_tweets[indexPath.Row]);
+			{
+				cell = new TweetsTableCell (_cellIdentifier);
+			}
+
+			Tweet tweet = _tweets [indexPath.Row];
+			string imageId = tweet.user.id.ToString();
+			string imageName = imageId + ".jpeg";
+
+			var imageFile = _tempDir.GetFiles ().FirstOrDefault (file => file.Name == imageName);
+			List<string> filesN = _tempDir.GetFiles ().Select (p=> p.Name).ToList ();
+
+			var profileImage = new UIImage();
+
+			if (imageFile != null)
+			{
+				var filename = Path.Combine (_tmpPath, imageName);
+				profileImage = UIImage.FromFile (filename);
+			}
+			else 
+			{
+				profileImage = ImageHelper.LoadImageFromUrl (tweet.user.profileImageUrl);
+				var _err = new NSError ();
+				var filename = Path.Combine (_tmpPath, imageName);
+				NSData imageData = profileImage.AsJPEG ();
+				UIImage.LoadFromData (imageData).AsPNG ().Save (filename, NSDataWritingOptions.Atomic, out _err);
+					
+			}
+
+			DateTime created;
+			DateTime.TryParse (tweet.createdAt, out created);
+
+			cell.UpdateCell (profileImage, tweet.user.name, tweet.text, created);
+			//cell.BindImage (profileImage);
+
 			return cell;
 		}
 
 		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 		{
-			_rowSelected (this, new RowSelectedEventArgs (_tweets[indexPath.Row]));
+			if(RowSelectedEvent != null)
+				RowSelectedEvent(_tweets[indexPath.Row]);
 		}
-
-		public EventHandler RowSelectedEvent
-		{
-			get { return _rowSelected; }
-			set { _rowSelected = value; }
-		}
-
 
 		public void AddTweets(List<Tweet> tweets)
 		{
