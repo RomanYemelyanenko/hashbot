@@ -8,7 +8,6 @@ using System.Linq;
 
 namespace HashBot
 {
-
 	public partial class MainViewController : UIViewController
 	{
 		private string _hashTag;
@@ -19,16 +18,14 @@ namespace HashBot
 		private static UIAlertView _loadAlertView;
 		private TweetProfileViewController _tweetViewController;
 
-		static MainViewController()
+		static MainViewController ()
 		{
 			_loadAlertView = new UIAlertView ("HashBot", "Загрузка данных...", null, null, null);
 			UIActivityIndicatorView spinner = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.White);
 			_loadAlertView.Presented += (object sender, EventArgs e) => {
-				spinner.Center = new PointF(_loadAlertView.Bounds.Width / 2, _loadAlertView.Frame.Height / 2 + 10);
+				spinner.Center = new PointF (_loadAlertView.Bounds.Width / 2, _loadAlertView.Frame.Height / 2 + 10);
+				spinner.StartAnimating ();
 			};
-
-
-			spinner.StartAnimating ();
 
 			_loadAlertView.AddSubview (spinner);
 		}
@@ -61,7 +58,7 @@ namespace HashBot
 
 			_tableSource.RowSelectedEvent += (Tweet) => {
 				_tweetViewController.BindTweet (Tweet); 
-				this.NavigationController.PushViewController ( _tweetViewController , true);
+				this.NavigationController.PushViewController (_tweetViewController, true);
 			};
 
 			btnLoadMore.TouchUpInside += OnLoadTweets;
@@ -72,39 +69,42 @@ namespace HashBot
 			titleAttributes.TextColor = UIColor.FromRGB (255, 255, 255);
 			TabBarItem.SetTitleTextAttributes (titleAttributes, UIControlState.Normal);
 
-			NavigationItem.SetRightBarButtonItem( new UIBarButtonItem ("Инфо", UIBarButtonItemStyle.Plain,
+			NavigationItem.SetRightBarButtonItem (new UIBarButtonItem ("Инфо", UIBarButtonItemStyle.Plain,
 			                                                           (sender,args) => {
 				NavigationController.PushViewController (new InfoViewController () { HidesBottomBarWhenPushed = true }, true);
-			}) , true);
+			}), true);
 
 
 			var infoAttributes = new UITextAttributes ();
 			infoAttributes.Font = Fonts.HelveticaNeueBold (12);
 			infoAttributes.TextColor = UIColor.FromRGB (255, 255, 255);
 			infoAttributes.TextShadowColor = UIColor.FromRGB (0, 0, 0);
-			infoAttributes.TextShadowOffset = new UIOffset (0,2);
+			infoAttributes.TextShadowOffset = new UIOffset (0, 2);
 
 			NavigationItem.RightBarButtonItem.SetTitleTextAttributes (infoAttributes, UIControlState.Normal);
 		}
 
-		void OnLoadTweets(object sender, EventArgs e)
+		void OnLoadTweets (object sender, EventArgs e)
 		{
-			lock(_loadAlertView)
-			{
-				if(!_loadAlertView.Visible)
+			lock (_loadAlertView) {
+				if (!_loadAlertView.Visible)
 					_loadAlertView.Show ();
 			}
-
-			_searcher.SearchAsync (_hashTag, _tweetsPerPage, LoadTweets);
-			// нет перегрузки SearchAsync с пейджингом
-			_tweetsPerPage += 15;
+			Console.WriteLine ("Inet: " + System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable ());
+			if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable ()) {
+				_searcher.SearchAsync (_hashTag, _tweetsPerPage, LoadTweets);
+				// нет перегрузки SearchAsync с пейджингом
+				_tweetsPerPage += 15;
+			} else {
+				UIAlertView noInternetConnectAlert = new UIAlertView ("Ошибка", "Отсутствует подключение к интернету", null, null, null);
+				noInternetConnectAlert.Show ();
+			}
 		}
 
-		void LoadTweets(Error error, List<Tweet> tweets)
+		void LoadTweets (Error error, List<Tweet> tweets)
 		{
-			if(error == null)
-			{
-				InvokeOnMainThread(() => {
+			if (error == null) {
+				InvokeOnMainThread (() => {
 					_tableSource.AddTweets(tweets);
 					_tweetsTable.ReloadData();
 					_loadAlertView.DismissWithClickedButtonIndex (0, true);

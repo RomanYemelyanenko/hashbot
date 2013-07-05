@@ -4,6 +4,9 @@ using MonoTouch.Foundation;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
+using System.Threading;
+using System.Diagnostics;
 
 namespace HashBot
 {
@@ -27,44 +30,32 @@ namespace HashBot
 
 		public override UITableViewCell GetCell (UITableView tableView, MonoTouch.Foundation.NSIndexPath indexPath)
 		{
-			var cell = tableView.DequeueReusableCell (_cellIdentifier) as TweetsTableCell;
-			if (cell == null)
-			{
-				cell = new TweetsTableCell (_cellIdentifier);
-			}
+			var cell = new TweetsTableCell (_cellIdentifier);
 
 			Tweet tweet = _tweets [indexPath.Row];
-			string imageId = tweet.user.id.ToString();
-			string imageName = imageId + ".jpeg";
-
-			var imageFile = _tempDir.GetFiles ().FirstOrDefault (file => file.Name == imageName);
-			List<string> filesN = _tempDir.GetFiles ().Select (p=> p.Name).ToList ();
-
-			var profileImage = new UIImage();
-
-			if (imageFile != null)
-			{
-				var filename = Path.Combine (_tmpPath, imageName);
-				profileImage = UIImage.FromFile (filename);
-			}
-			else 
-			{
-				profileImage = ImageHelper.LoadImageFromUrl (tweet.user.profileImageUrl);
-				var _err = new NSError ();
-				var filename = Path.Combine (_tmpPath, imageName);
-				NSData imageData = profileImage.AsJPEG ();
-				UIImage.LoadFromData (imageData).AsPNG ().Save (filename, NSDataWritingOptions.Atomic, out _err);
-					
-			}
-
 			DateTime created;
 			DateTime.TryParse (tweet.createdAt, out created);
 
-			cell.UpdateCell (profileImage, tweet.user.name, tweet.text, created);
-			//cell.BindImage (profileImage);
+			cell.UpdateCell (tweet.user.name, tweet.text, created);
+
+			this.BindImage (cell, tweet);
 
 			return cell;
 		}
+
+		private void BindImage(TweetsTableCell tableCell, Tweet tweet)
+		{
+				ThreadPool.QueueUserWorkItem( (state) =>	 {
+
+				 var backProfileImage = ImageHelper.LoadImageFromUrl (tweet.user.profileImageUrl);
+
+					InvokeOnMainThread (() => 
+                    {
+						tableCell.BindImage (backProfileImage); 
+					});
+				});
+		}
+
 
 		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
 		{

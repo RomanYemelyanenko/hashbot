@@ -14,7 +14,12 @@ namespace HashBot
 		public static UIImage LoadImageFromUrl(string weburl)
 		{
 			NSData imgdata = NSData.FromUrl(new NSUrl(weburl));
-			return new UIImage(imgdata);
+			if (imgdata != null) {
+				return new UIImage (imgdata);
+			}
+			else {
+				return new UIImage (new NSData());
+			}
 		}
 	}
 }
