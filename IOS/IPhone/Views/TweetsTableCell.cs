@@ -61,6 +61,11 @@ namespace HashBot
 			_imageView.Image = profileImage;
 		}
 
+		public void ApplyAvatarMask(string avatarMaskPath)
+		{
+			_imageView.ApplyImageMask (avatarMaskPath);
+		}
+
 		public string ParseDate(DateTime date)
 		{
 			var diff = DateTime.Now - date;

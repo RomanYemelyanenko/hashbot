@@ -13,7 +13,7 @@ namespace HashBot
 				return new UIImage (imgdata);
 			}
 			else {
-				return new UIImage (new NSData());
+				return null;
 			}
 		}
 	}

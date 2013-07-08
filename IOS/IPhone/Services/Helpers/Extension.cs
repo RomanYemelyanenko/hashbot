@@ -1,6 +1,7 @@
 using System;
 using MonoTouch.UIKit;
 using System.Drawing;
+using MonoTouch.CoreGraphics;
 
 namespace HashBot
 {
@@ -61,6 +62,21 @@ namespace HashBot
 			var stretchableNormalImage = UIImage.FromBundle (imagePath).StretchableImage((int) (normalImage.Size.Width/2 - 1), 
 			                                                                                   (int)(normalImage.Size.Height/2 - 1));
 			view.Image = stretchableNormalImage;
+		}
+
+		public static void ApplyImageMask(this UIImageView view, string maskPath)
+		{
+			var mask = UIImage.FromBundle (maskPath).CGImage;
+			var image = view.Image.CGImage;
+
+			var maskImag = CGImage.CreateMask (mask.Width,
+			                               mask.Height,
+			                               mask.BitsPerComponent,
+			                               mask.BitsPerPixel,
+			                               mask.BytesPerRow,
+			                               mask.DataProvider, null, false);
+
+			view.Image = new UIImage (image.WithMask (maskImag));
 		}
 
 	}

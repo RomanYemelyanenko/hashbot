@@ -15,9 +15,7 @@ namespace HashBot
 
 		private List<Tweet> _tweets = new List<Tweet>();
 		private NSString _cellIdentifier = new NSString("TableCell");
-
-		private static string _documents = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments);
-		private static string _tmpPath = Path.Combine (_documents, "..", "tmp");
+		private UIImage _defaultImage = UIImage.FromFile("Images/Main/avatar.png");
 
 		public event Action<Tweet> RowSelectedEvent;
 
@@ -28,7 +26,10 @@ namespace HashBot
 
 		public override UITableViewCell GetCell (UITableView tableView, MonoTouch.Foundation.NSIndexPath indexPath)
 		{
-			var cell = new TweetsTableCell (_cellIdentifier);
+			var cell = tableView.DequeueReusableCell (_cellIdentifier) as TweetsTableCell;
+
+			if (cell == null) // if there are no cells to reuse, create a new one
+				cell = new TweetsTableCell (_cellIdentifier);
 
 			Tweet tweet = _tweets [indexPath.Row];
 			DateTime created;
@@ -43,13 +44,17 @@ namespace HashBot
 
 		private void BindImage(TweetsTableCell tableCell, Tweet tweet)
 		{
+			tableCell.BindImage (_defaultImage);
+			tableCell.ApplyAvatarMask("Images/Main/mask_avatar.png");
 				ThreadPool.QueueUserWorkItem( (state) =>	 {
 
 				 var backProfileImage = ImageHelper.LoadImageFromUrl (tweet.user.profileImageUrl);
 
 					InvokeOnMainThread (() => 
                     {
+					if(backProfileImage!= null)
 						tableCell.BindImage (backProfileImage); 
+						tableCell.ApplyAvatarMask ("Images/Main/mask_avatar.png");
 					});
 				});
 		}

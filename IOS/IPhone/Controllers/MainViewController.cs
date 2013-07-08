@@ -43,8 +43,6 @@ namespace HashBot
 			InitInfoButtonStyle ();
 
 			OnLoadTweets (new object(), new EventArgs ());
-
-
 		}
 
 		private void InitTableFooter ()
@@ -74,7 +72,7 @@ namespace HashBot
 			};
 		}
 
-		private void InitTabBarItemsStyle()
+		private void InitTabBarItemsStyle ()
 		{
 			var titleAttributes = new UITextAttributes ();
 			titleAttributes.Font = Fonts.HelveticaNeueBold (10);
@@ -82,7 +80,7 @@ namespace HashBot
 			TabBarItem.SetTitleTextAttributes (titleAttributes, UIControlState.Normal);
 		}
 
-		private void InitInfoButtonStyle()
+		private void InitInfoButtonStyle ()
 		{
 			var infoAttributes = new UITextAttributes ();
 			infoAttributes.Font = Fonts.HelveticaNeueBold (12);
@@ -97,12 +95,12 @@ namespace HashBot
 		{
 			EnsureAlertView ();
 
-			if (HasConnection ()) {
+			try {
 				_searcher.SearchAsync (_hashTag, _tweetsPerPage, LoadTweets);
 				// нет перегрузки SearchAsync с пейджингом
 				_tweetsPerPage += 15;
-			} else {
-				UIAlertView noInternetConnectAlert = new UIAlertView ("Ошибка", "Отсутствует подключение к интернету", null, null, null);
+			} catch (Exception ex) {
+				UIAlertView noInternetConnectAlert = new UIAlertView ("Ошибка", ex.Message, null, null, null);
 				noInternetConnectAlert.Show ();
 			}
 		}
@@ -133,18 +131,10 @@ namespace HashBot
 					_loadAlertView.DismissWithClickedButtonIndex (0, true);
 				});
 			} else {
+				InvokeOnMainThread (() => {
 				var alert = new UIAlertView ("Ошибка", error.Message, null, null, null);
 				alert.Show ();
-			}
-		}
-
-		private static bool HasConnection ()
-		{
-			try {
-				System.Net.IPHostEntry i = System.Net.Dns.GetHostEntry ("www.google.com");
-				return true;
-			} catch {
-				return false;
+				});
 			}
 		}
 	}

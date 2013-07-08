@@ -17,13 +17,13 @@ namespace HashBot
 
 		public InfoSrolableResizebleView(RectangleF viewArea, UIViewController controller) : base(viewArea)
 		{
-			InitViewStyle (viewArea);
+			InitView (viewArea);
 			InitLogoImage ();
 			InitInfoText ();
 			InitCallAndSendMsgBtns ();
 		}
 
-		private void InitViewStyle (RectangleF viewArea)
+		private void InitView (RectangleF viewArea)
 		{
 			BackgroundColor = UIColor.FromRGB (0xFF,0xFF,0xFF);
 			Frame = viewArea;
@@ -42,7 +42,11 @@ namespace HashBot
 			_infoText = new UITextView();
 
 			_infoText.Editable = false;
-			_infoText.Text = "Нам не стыдно за выпускаемые продукты, все они сделаны с вниманием к деталям. Пользователи это ценят, многие наши приложения попадают в топы AppStore и получают высокие оценки. \n\nМы любим своих заказчиков и решаем их задачи. На письма и телефон отвечаем быстро, по праздникам и выходным, делаем работу в срок и никуда не пропадаем.\nЗакажите разработку сейчас! ";
+			_infoText.Text = "Нам не стыдно за выпускаемые продукты, все они сделаны с вниманием к деталям. " +
+				"Пользователи это ценят, многие наши приложения попадают в топы AppStore и получают высокие оценки. " +
+				"\n\nМы любим своих заказчиков и решаем их задачи. На письма и телефон отвечаем быстро, по праздникам и выходным, " +
+				"делаем работу в срок и никуда не пропадаем.\nЗакажите разработку сейчас! ";
+
 			_infoText.AutoresizingMask = UIViewAutoresizing.FlexibleWidth | UIViewAutoresizing.FlexibleHeight;
 			_infoText.Font = Fonts.HelveticaNeue (10);
 			_infoText.TextColor = UIColor.FromRGB (0x41,0x41,0x41);
@@ -74,14 +78,20 @@ namespace HashBot
 			base.LayoutSubviews ();
 			_leftAndRigthOffsets = (int)(Bounds.Width * 0.1);
 
-			//reset logo image and info text position
-			_logoImageView.SetRoundedFrame (Bounds.Width / 2 - _logoImageView.Bounds.Width / 2 , 10, _logoImageView.Bounds.Size );
-			_infoText.SetRoundedFrame (_leftAndRigthOffsets, _logoImageView.Bounds.Bottom + 30, Bounds.Width - _leftAndRigthOffsets * 2, 200);
+			_logoImageView.SetRoundedFrame (Bounds.Width / 2 - _logoImageView.Bounds.Width / 2 , 
+			                                10, 
+			                                _logoImageView.Bounds.Size );
+
+			_infoText.SetRoundedFrame (_leftAndRigthOffsets, 
+			                           _logoImageView.Bounds.Bottom + 30, 
+			                           Bounds.Width - _leftAndRigthOffsets * 2, 
+			                           200);
 			_infoText.SizeToFit ();
 
-			PointF btnLocation = new PointF (_infoText.Frame.X, _infoText.Frame.Bottom  + 30);
+			PointF btnLocation = new PointF (_infoText.Frame.X, 
+			                                 _infoText.Frame.Bottom  + 30);
 			_btnCall.SetRoundedFrame (btnLocation, _buttonSize);
-			//alignment by left side
+			//alignment by right side
 			btnLocation.X = Bounds.Width - _leftAndRigthOffsets - _buttonSize.Width;
 			_btnSendMessage.SetRoundedFrame (btnLocation, _buttonSize);
 
