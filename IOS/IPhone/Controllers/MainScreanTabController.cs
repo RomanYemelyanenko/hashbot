@@ -5,16 +5,19 @@ namespace HashBot
 {
 	public class MainScreanTabController : UITabBarController
 	{
+		private const string _consumerKey = "tajGuj9oxo2J6dyIdOv3Mg";
+		private const string _consumerSecret = "Njx3rTnYNXxzJJMkyQPHynJ1tRx8PdHLXBIkp4";
+		private const string _requestTokenUrl = "https://api.twitter.com/oauth2/token";
+		private const string _userAgent = "Bot";
+		private const string _tweeterHostUrl = "https://api.twitter.com";
+		private const string _tweeterRequestUrl = "1.1/search/tweets.json";
 
 
 		public MainScreanTabController () 
 		{
-			ApplicationOnlyTwitterAuthService authService = new ApplicationOnlyTwitterAuthService ( "tajGuj9oxo2J6dyIdOv3Mg",
-			                                                                                   "Njx3rTnYNXxzJJMkyQPHynJ1tRx8PdHLXBIkp4", 
-			                                                                                   "https://api.twitter.com/oauth2/token",
-			                                                                                   "#Bot");
+			var authService = new ApplicationOnlyTwitterAuthService (_consumerKey, _consumerSecret, _requestTokenUrl, _userAgent);
 
-			TwitterSearcher searcher = new TwitterSearcher (authService, "https://api.twitter.com","1.1/search/tweets.json");
+			var searcher = new TwitterSearcher (authService, _tweeterHostUrl, _tweeterRequestUrl);
 
 			ViewControllers = new UIViewController[] {
 				CreateController ("#Twitter","Images/TabBar/icon_twitter.png", searcher),
@@ -26,7 +29,7 @@ namespace HashBot
 			var titleAttributes = new UITextAttributes ();
 			titleAttributes.Font = Fonts.HelveticaNeueBold (13);
 			titleAttributes.TextColor = UIColor.FromRGB (255, 255, 255);
-			this.TabBarItem.SetTitleTextAttributes (titleAttributes, UIControlState.Normal);
+			TabBarItem.SetTitleTextAttributes (titleAttributes, UIControlState.Normal);
 		}
 
 		private UIViewController CreateController (string tabTitle, string tabImagePath, TwitterSearcher searcher)
@@ -34,9 +37,7 @@ namespace HashBot
 			var controller = new MainViewController (tabTitle, searcher);
 			controller.TabBarItem.Image = UIImage.FromFile (tabImagePath);
 
-			var navController = new UINavigationController (controller);
-
-			return navController;
+			return new UINavigationController (controller);
 		}
 	}
 }

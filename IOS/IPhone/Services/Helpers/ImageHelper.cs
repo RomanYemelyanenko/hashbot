@@ -6,11 +6,6 @@ namespace HashBot
 {
 	public static class ImageHelper
 	{
-		public static UIImage GetStretchableImage(string image,int leftCapWidth, int topCapHeight)
-		{
-				return UIImage.FromBundle (image).StretchableImage (leftCapWidth, topCapHeight);
-		}
-
 		public static UIImage LoadImageFromUrl(string weburl)
 		{
 			NSData imgdata = NSData.FromUrl(new NSUrl(weburl));

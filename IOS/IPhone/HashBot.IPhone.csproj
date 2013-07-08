@@ -119,6 +119,7 @@
     <Compile Include="Controllers\MainScreanTabController.cs" />
     <Compile Include="Views\TweetsTableCell.cs" />
     <Compile Include="Controllers\TweetsTableSource.cs" />
+    <Compile Include="Services\Helpers\Extension.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

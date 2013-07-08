@@ -15,20 +15,8 @@ namespace HashBot
 		private int _currentPage;
 		private int _tweetsPerPage = 15;
 		private TweetsTableSource _tableSource;
-		private static UIAlertView _loadAlertView;
+		private UIAlertView _loadAlertView;
 		private TweetProfileViewController _tweetViewController;
-
-		static MainViewController ()
-		{
-			_loadAlertView = new UIAlertView ("HashBot", "Загрузка данных...", null, null, null);
-			UIActivityIndicatorView spinner = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.White);
-			_loadAlertView.Presented += (object sender, EventArgs e) => {
-				spinner.Center = new PointF (_loadAlertView.Bounds.Width / 2, _loadAlertView.Frame.Height / 2 + 10);
-				spinner.StartAnimating ();
-			};
-
-			_loadAlertView.AddSubview (spinner);
-		}
 
 		public MainViewController (string hashTag, TwitterSearcher searcher) : base ("MainViewController", null)
 		{
@@ -43,6 +31,24 @@ namespace HashBot
 		{
 			base.ViewDidLoad ();
 
+			InitTableFooter ();
+			InitTableSource ();
+
+			NavigationItem.SetRightBarButtonItem (new UIBarButtonItem ("Инфо", UIBarButtonItemStyle.Plain,
+			                                                           (sender,args) => {
+				NavigationController.PushViewController (new InfoViewController () { HidesBottomBarWhenPushed = true }, true);
+			}), true);
+
+			InitTabBarItemsStyle ();
+			InitInfoButtonStyle ();
+
+			OnLoadTweets (new object(), new EventArgs ());
+
+
+		}
+
+		private void InitTableFooter ()
+		{
 			var btnLoadMore = new UIButton (UIButtonType.RoundedRect);
 			btnLoadMore.Frame = new RectangleF (10, 10, 300, 44);
 			btnLoadMore.SetTitle ("Показать еще", UIControlState.Normal);
@@ -53,28 +59,31 @@ namespace HashBot
 			footer.AddSubview (btnLoadMore);
 
 			_tweetsTable.TableFooterView = footer;
+
 			btnLoadMore.AutoresizingMask = UIViewAutoresizing.FlexibleRightMargin | UIViewAutoresizing.FlexibleLeftMargin;
+			btnLoadMore.TouchUpInside += OnLoadTweets;
+		}
+
+		private void InitTableSource ()
+		{
 			_tweetsTable.Source = _tableSource = new TweetsTableSource ();
 
 			_tableSource.RowSelectedEvent += (Tweet) => {
 				_tweetViewController.BindTweet (Tweet); 
-				this.NavigationController.PushViewController (_tweetViewController, true);
+				NavigationController.PushViewController (_tweetViewController, true);
 			};
+		}
 
-			btnLoadMore.TouchUpInside += OnLoadTweets;
-			OnLoadTweets (new object(), new EventArgs ());
-
+		private void InitTabBarItemsStyle()
+		{
 			var titleAttributes = new UITextAttributes ();
 			titleAttributes.Font = Fonts.HelveticaNeueBold (10);
 			titleAttributes.TextColor = UIColor.FromRGB (255, 255, 255);
 			TabBarItem.SetTitleTextAttributes (titleAttributes, UIControlState.Normal);
+		}
 
-			NavigationItem.SetRightBarButtonItem (new UIBarButtonItem ("Инфо", UIBarButtonItemStyle.Plain,
-			                                                           (sender,args) => {
-				NavigationController.PushViewController (new InfoViewController () { HidesBottomBarWhenPushed = true }, true);
-			}), true);
-
-
+		private void InitInfoButtonStyle()
+		{
 			var infoAttributes = new UITextAttributes ();
 			infoAttributes.Font = Fonts.HelveticaNeueBold (12);
 			infoAttributes.TextColor = UIColor.FromRGB (255, 255, 255);
@@ -84,14 +93,11 @@ namespace HashBot
 			NavigationItem.RightBarButtonItem.SetTitleTextAttributes (infoAttributes, UIControlState.Normal);
 		}
 
-		void OnLoadTweets (object sender, EventArgs e)
+		private void OnLoadTweets (object sender, EventArgs e)
 		{
-			lock (_loadAlertView) {
-				if (!_loadAlertView.Visible)
-					_loadAlertView.Show ();
-			}
-			Console.WriteLine ("Inet: " + System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable ());
-			if (System.Net.NetworkInformation.NetworkInterface.GetIsNetworkAvailable ()) {
+			EnsureAlertView ();
+
+			if (HasConnection ()) {
 				_searcher.SearchAsync (_hashTag, _tweetsPerPage, LoadTweets);
 				// нет перегрузки SearchAsync с пейджингом
 				_tweetsPerPage += 15;
@@ -101,7 +107,24 @@ namespace HashBot
 			}
 		}
 
-		void LoadTweets (Error error, List<Tweet> tweets)
+		private void EnsureAlertView ()
+		{
+			if (_loadAlertView == null) {
+				_loadAlertView = new UIAlertView ("HashBot", "Загрузка данных...", null, null, null);
+				_loadAlertView.Presented += (object sender, EventArgs e) => {
+					var alert = sender as UIAlertView;
+
+					var spinner = new UIActivityIndicatorView (UIActivityIndicatorViewStyle.White);
+					spinner.Center = new PointF (_loadAlertView.Bounds.Width / 2, _loadAlertView.Frame.Height / 2 + 10);
+					alert.AddSubview (spinner);
+					spinner.StartAnimating ();
+				};
+			}
+			if (!_loadAlertView.Visible)
+				_loadAlertView.Show ();
+		}
+
+		private void LoadTweets (Error error, List<Tweet> tweets)
 		{
 			if (error == null) {
 				InvokeOnMainThread (() => {
@@ -109,6 +132,19 @@ namespace HashBot
 					_tweetsTable.ReloadData();
 					_loadAlertView.DismissWithClickedButtonIndex (0, true);
 				});
+			} else {
+				var alert = new UIAlertView ("Ошибка", error.Message, null, null, null);
+				alert.Show ();
+			}
+		}
+
+		private static bool HasConnection ()
+		{
+			try {
+				System.Net.IPHostEntry i = System.Net.Dns.GetHostEntry ("www.google.com");
+				return true;
+			} catch {
+				return false;
 			}
 		}
 	}

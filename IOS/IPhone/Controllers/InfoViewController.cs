@@ -15,12 +15,6 @@ namespace HashBot
 			Title = "Инфо";
 		}
 
-		public override void DidReceiveMemoryWarning ()
-		{
-			base.DidReceiveMemoryWarning ();
-		}
-
-
 		public override void ViewDidLoad ()
 		{
 			base.ViewDidLoad ();

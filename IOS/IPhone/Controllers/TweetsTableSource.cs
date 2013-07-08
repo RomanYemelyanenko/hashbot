@@ -19,8 +19,6 @@ namespace HashBot
 		private static string _documents = Environment.GetFolderPath (Environment.SpecialFolder.MyDocuments);
 		private static string _tmpPath = Path.Combine (_documents, "..", "tmp");
 
-		private DirectoryInfo _tempDir = new DirectoryInfo (_tmpPath);
-
 		public event Action<Tweet> RowSelectedEvent;
 
 		public override int RowsInSection (UITableView tableview, int section)
@@ -38,7 +36,7 @@ namespace HashBot
 
 			cell.UpdateCell (tweet.user.name, tweet.text, created);
 
-			this.BindImage (cell, tweet);
+			BindImage (cell, tweet);
 
 			return cell;
 		}
