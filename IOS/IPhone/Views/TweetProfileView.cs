@@ -107,6 +107,7 @@ namespace HashBot
 
 			public void BindTweet (Tweet tweet)
 			{
+				_userImage.ApplyImageFromUrlAsunc (tweet.user.profileImageUrl, UIImage.FromFile ("Images/Main/avatar.png"));
 				_userName.Text = tweet.user.name;
 				_sourse.Text = tweet.source;
 				_tweetText.Text = tweet.text;

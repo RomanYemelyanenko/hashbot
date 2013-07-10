@@ -82,21 +82,6 @@ namespace HashBot
 
 			}
 
-			public UILabel TweetHeadingLabel 
-			{ 
-				get { return _headingLabel; } 
-			}
-
-			public UILabel TweetSubheadingLabel 
-			{ 
-				get { return _subheadingLabel; }  
-			}
-
-			public UILabel TweetCreatedLable 
-			{ 
-				get { return _createdLable; }  
-			}
-
 			public UIImageView UserImage 
 			{ 
 				get { return _imageView; }  
