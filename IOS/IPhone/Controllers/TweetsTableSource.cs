@@ -7,46 +7,49 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Threading;
 using System.Diagnostics;
+using HashBot.UI;
 
 namespace HashBot
 {
-	public class TweetsTableSource : UITableViewSource
+	namespace Logic
 	{
-
-		private List<Tweet> _tweets = new List<Tweet>();
-		private NSString _cellIdentifier = new NSString("TableCell");
-		private UIImage _defaultImage = UIImage.FromFile("Images/Main/avatar.png");
-
-		public event Action<Tweet> RowSelectedEvent;
-
-		public override int RowsInSection (UITableView tableview, int section)
+		public class TweetsTableSource : UITableViewSource
 		{
-			return _tweets.Count;
-		}
 
-		public override UITableViewCell GetCell (UITableView tableView, MonoTouch.Foundation.NSIndexPath indexPath)
-		{
-			var cell = tableView.DequeueReusableCell (_cellIdentifier) as TweetsTableCell;
+			private List<Tweet> _tweets = new List<Tweet> ();
+			private NSString _cellIdentifier = new NSString ("TableCell");
+			private UIImage _defaultImage = UIImage.FromFile ("Images/Main/avatar.png");
 
-			if (cell == null) // if there are no cells to reuse, create a new one
-				cell = new TweetsTableCell (_cellIdentifier);
+			public event Action<Tweet> RowSelectedEvent;
 
-			Tweet tweet = _tweets [indexPath.Row];
-			DateTime created;
-			DateTime.TryParse (tweet.createdAt, out created);
+			public override int RowsInSection (UITableView tableview, int section)
+			{
+				return _tweets.Count;
+			}
 
-			cell.UpdateCell (tweet.user.name, tweet.text, created);
+			public override UITableViewCell GetCell (UITableView tableView, MonoTouch.Foundation.NSIndexPath indexPath)
+			{
+				var cell = tableView.DequeueReusableCell (_cellIdentifier) as TweetsTableCell;
 
-			BindImage (cell, tweet);
+				if (cell == null) // if there are no cells to reuse, create a new one
+					cell = new TweetsTableCell (_cellIdentifier);
 
-			return cell;
-		}
+				Tweet tweet = _tweets [indexPath.Row];
+				DateTime created;
+				DateTime.TryParse (tweet.createdAt, out created);
 
-		private void BindImage(TweetsTableCell tableCell, Tweet tweet)
-		{
-			tableCell.BindImage (_defaultImage);
-			tableCell.ApplyAvatarMask("Images/Main/mask_avatar.png");
-				ThreadPool.QueueUserWorkItem( (state) =>	 {
+				cell.UpdateCell (tweet.user.name, tweet.text, created);
+
+				BindImage (cell, tweet);
+
+				return cell;
+			}
+
+			private void BindImage (TweetsTableCell tableCell, Tweet tweet)
+			{
+				tableCell.BindImage (_defaultImage);
+				tableCell.ApplyAvatarMask ("Images/Main/mask_avatar.png");
+				ThreadPool.QueueUserWorkItem ((state) =>	 {
 
 				 var backProfileImage = ImageHelper.LoadImageFromUrl (tweet.user.profileImageUrl);
 
@@ -57,18 +60,18 @@ namespace HashBot
 						tableCell.ApplyAvatarMask ("Images/Main/mask_avatar.png");
 					});
 				});
-		}
+			}
 
+			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
+			{
+				if (RowSelectedEvent != null)
+					RowSelectedEvent (_tweets[indexPath.Row]);
+			}
 
-		public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
-		{
-			if(RowSelectedEvent != null)
-				RowSelectedEvent(_tweets[indexPath.Row]);
-		}
-
-		public void AddTweets(List<Tweet> tweets)
-		{
-			_tweets.AddRange (tweets);
+			public void AddTweets (List<Tweet> tweets)
+			{
+				_tweets.AddRange (tweets);
+			}
 		}
 	}
 }

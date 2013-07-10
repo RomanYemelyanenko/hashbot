@@ -4,16 +4,19 @@ using MonoTouch.UIKit;
 
 namespace HashBot
 {
-	public static class Fonts
+	namespace UI
 	{
-		public static UIFont HelveticaNeueBold(float fontSize)
+		public static class Fonts
 		{
-			return UIFont.FromName ("HelveticaNeue-Bold", fontSize);
-		}
+			public static UIFont HelveticaNeueBold (float fontSize)
+			{
+				return UIFont.FromName ("HelveticaNeue-Bold", fontSize);
+			}
 
-		public static UIFont HelveticaNeue(float fontSize)
-		{
-			return UIFont.FromName ("HelveticaNeue", fontSize);
+			public static UIFont HelveticaNeue (float fontSize)
+			{
+				return UIFont.FromName ("HelveticaNeue", fontSize);
+			}
 		}
 	}
 }

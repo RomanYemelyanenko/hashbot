@@ -3,51 +3,55 @@ using System.Drawing;
 using MonoTouch.Foundation;
 using MonoTouch.UIKit;
 using MonoTouch.MessageUI;
+using HashBot.UI;
 
 namespace HashBot
 {
-	public class InfoViewController : UIViewController
+	namespace Logic
 	{
-		private InfoSrolableResizebleView _view;
-
-		public InfoViewController () 
+		public class InfoViewController : UIViewController
 		{
-			Title = "Инфо";
-		}
+			private InfoSrolableResizebleView _view;
 
-		public override void ViewDidLoad ()
-		{
-			base.ViewDidLoad ();
-			View.AddSubview (this.InfoView);
-		}
+			public InfoViewController ()
+			{
+				Title = "Инфо";
+			}
 
-		private InfoSrolableResizebleView InfoView
-		{
-			get {
-				if (_view == null) {
+			public override void ViewDidLoad ()
+			{
+				base.ViewDidLoad ();
+				View.AddSubview (this.InfoView);
+			}
 
-					_view = new InfoSrolableResizebleView (new RectangleF(0,0, View.Bounds.Width, View.Bounds.Height), this);
+			private InfoSrolableResizebleView InfoView {
+				get {
+					if (_view == null) {
 
-					_view.Call.TouchUpInside += (sender, e) => { 
-						UIApplication.SharedApplication.OpenUrl (new NSUrl ("tel:8-812-309-3879"));
-					};
+						_view = new InfoSrolableResizebleView (new RectangleF(0,0, View.Bounds.Width, View.Bounds.Height), this);
 
-					_view.SendMessage.TouchUpInside += SendMessage;
+						_view.Call.TouchUpInside += (sender, e) => { 
+							UIApplication.SharedApplication.OpenUrl (new NSUrl ("tel:8-812-309-3879"));
+						};
+
+						_view.SendMessage.TouchUpInside += SendMessage;
+					}
+					return _view;
 				}
-				return _view;
+
 			}
 
-		}
+			private void SendMessage (object sender, EventArgs e)
+			{
+				if (MFMailComposeViewController.CanSendMail) {
+					var mailController = new MFMailComposeViewController ();
+					mailController.SetToRecipients (new string[] { "hello@touchin.ru" });
+					mailController.Finished += (finishSender, finishE) => {
+						finishE.Controller.DismissViewController (true, null); };
+					this.PresentViewController (mailController, true, null);
+				}
 
-		private void SendMessage(object sender, EventArgs e)
-		{
-			if (MFMailComposeViewController.CanSendMail) {
-				var mailController = new MFMailComposeViewController ();
-				mailController.SetToRecipients (new string[] { "hello@touchin.ru" });
-				mailController.Finished += (finishSender, finishE) => { finishE.Controller.DismissViewController (true, null); };
-				this.PresentViewController (mailController, true, null);
 			}
-
 		}
 	}
 }
