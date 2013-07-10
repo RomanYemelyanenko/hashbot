@@ -5,8 +5,6 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IOS", "IOS", "{CDC51E71-AA8
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashBot.IPhone", "IPhone\HashBot.IPhone.csproj", "{75359426-13FA-4791-B6B5-6D399DD8B0FC}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "123", "IPhone\123\123.csproj", "{8B10A0BD-1FDA-4DFC-999E-71357FCDFFCE}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic", "Logic\Logic.csproj", "{40DEEF6F-D3D0-4AAA-86AD-E74908A31911}"
 EndProject
 Global
@@ -43,22 +41,9 @@ Global
 		{75359426-13FA-4791-B6B5-6D399DD8B0FC}.Release|iPhone.Build.0 = Release|iPhone
 		{75359426-13FA-4791-B6B5-6D399DD8B0FC}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
 		{75359426-13FA-4791-B6B5-6D399DD8B0FC}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
-		{8B10A0BD-1FDA-4DFC-999E-71357FCDFFCE}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
-		{8B10A0BD-1FDA-4DFC-999E-71357FCDFFCE}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
-		{8B10A0BD-1FDA-4DFC-999E-71357FCDFFCE}.AppStore|iPhone.ActiveCfg = Release|Any CPU
-		{8B10A0BD-1FDA-4DFC-999E-71357FCDFFCE}.AppStore|iPhone.Build.0 = Release|Any CPU
-		{8B10A0BD-1FDA-4DFC-999E-71357FCDFFCE}.Debug|iPhone.ActiveCfg = Debug|Any CPU
-		{8B10A0BD-1FDA-4DFC-999E-71357FCDFFCE}.Debug|iPhone.Build.0 = Debug|Any CPU
-		{8B10A0BD-1FDA-4DFC-999E-71357FCDFFCE}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
-		{8B10A0BD-1FDA-4DFC-999E-71357FCDFFCE}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
-		{8B10A0BD-1FDA-4DFC-999E-71357FCDFFCE}.Release|iPhone.ActiveCfg = Release|Any CPU
-		{8B10A0BD-1FDA-4DFC-999E-71357FCDFFCE}.Release|iPhone.Build.0 = Release|Any CPU
-		{8B10A0BD-1FDA-4DFC-999E-71357FCDFFCE}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
-		{8B10A0BD-1FDA-4DFC-999E-71357FCDFFCE}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{75359426-13FA-4791-B6B5-6D399DD8B0FC} = {CDC51E71-AA8E-498B-A5B4-CBDC70E65B36}
-		{8B10A0BD-1FDA-4DFC-999E-71357FCDFFCE} = {CDC51E71-AA8E-498B-A5B4-CBDC70E65B36}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = IPhone\HashBot.IPhone.csproj

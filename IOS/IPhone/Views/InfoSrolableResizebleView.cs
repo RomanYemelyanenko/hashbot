@@ -57,7 +57,7 @@ namespace HashBot
 
 			private void InitCallAndSendMsgBtns ()
 			{
-				UIImage image = UIImage.FromFile ("Images/Info/button.png");
+				var image = UIImage.FromFile ("Images/Info/button.png");
 
 				_buttonSize = new SizeF (120, image.Size.Height);
 				_btnCall = new UIButton (UIButtonType.RoundedRect);

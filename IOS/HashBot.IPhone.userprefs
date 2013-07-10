@@ -1,17 +1,13 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug|iPhoneSimulator" PreferredExecutionTarget="MonoDevelop.IPhone.IPhoneSimulatorTarget.IPhone.6.1" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Logic/Services/TwitterAuthorization/ApplicationOnlyTwitterAuthService.cs">
-    <Files>
-      <File FileName="IPhone/Services/TwitterSearcher/TwitterSearcher.cs" Line="14" Column="54" />
-      <File FileName="Logic/Services/TwitterAuthorization/ApplicationOnlyTwitterAuthService.cs" Line="71" Column="7" />
-      <File FileName="Logic/Services/TwitterAuthorization/ITwitterAuthorizationService.cs" Line="1" Column="1" />
-    </Files>
+  <MonoDevelop.Ide.Workbench>
     <Pads>
       <Pad Id="ProjectPad">
         <State expanded="True">
           <Node name="IOS" expanded="True">
             <Node name="HashBot.IPhone" expanded="True">
-              <Node name="Resources" expanded="True" />
+              <Node name="Common" expanded="True" />
+              <Node name="Controllers" expanded="True" />
               <Node name="Views" expanded="True" />
             </Node>
           </Node>

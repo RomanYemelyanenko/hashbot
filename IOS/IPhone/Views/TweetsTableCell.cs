@@ -7,7 +7,7 @@ namespace HashBot
 {
 	namespace UI
 	{
-		public class TweetsTableCell : UITableViewCell
+		public class TweetsTableCell : UITableViewCell, ITweetsTableCell
 		{
 			private UILabel _headingLabel;
 			private UILabel _subheadingLabel;
@@ -59,16 +59,6 @@ namespace HashBot
 				_createdLable.Text = ParseDate (created); // ParseDate (DateTime.Parse (tweet.createdAt ));
 			}
 
-			public void BindImage (UIImage profileImage)
-			{
-				_imageView.Image = profileImage;
-			}
-
-			public void ApplyAvatarMask (string avatarMaskPath)
-			{
-				_imageView.ApplyImageMask (avatarMaskPath);
-			}
-
 			public string ParseDate (DateTime date)
 			{
 				var diff = DateTime.Now - date;
@@ -90,6 +80,26 @@ namespace HashBot
 				_headingLabel.Frame = new RectangleF (50, 4, viewWidth - 63, 25);
 				_subheadingLabel.Frame = new RectangleF (50, 25, viewWidth - 70, 20);
 
+			}
+
+			public UILabel TweetHeadingLabel 
+			{ 
+				get { return _headingLabel; } 
+			}
+
+			public UILabel TweetSubheadingLabel 
+			{ 
+				get { return _subheadingLabel; }  
+			}
+
+			public UILabel TweetCreatedLable 
+			{ 
+				get { return _createdLable; }  
+			}
+
+			public UIImageView UserImage 
+			{ 
+				get { return _imageView; }  
 			}
 		}
 	}

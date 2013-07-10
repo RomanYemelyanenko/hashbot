@@ -25,7 +25,6 @@ namespace HashBot
 			public void BindTweet (Tweet tweet)
 			{ 
 				_view.BindTweet (tweet);
-
 			}
 
 			public override void ViewDidLoad ()

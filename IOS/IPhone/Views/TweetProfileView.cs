@@ -107,7 +107,6 @@ namespace HashBot
 
 			public void BindTweet (Tweet tweet)
 			{
-				_userImage.Image = ImageHelper.LoadImageFromUrl (tweet.user.profileImageUrl);
 				_userName.Text = tweet.user.name;
 				_sourse.Text = tweet.source;
 				_tweetText.Text = tweet.text;
@@ -180,6 +179,8 @@ namespace HashBot
 				                               _delimiterLine.Frame.Height);
 
 			}
+
+
 		}
 	}
 }

@@ -34,7 +34,7 @@ namespace HashBot
 				if (cell == null) // if there are no cells to reuse, create a new one
 					cell = new TweetsTableCell (_cellIdentifier);
 
-				Tweet tweet = _tweets [indexPath.Row];
+				var tweet = _tweets [indexPath.Row];
 				DateTime created;
 				DateTime.TryParse (tweet.createdAt, out created);
 
@@ -47,19 +47,8 @@ namespace HashBot
 
 			private void BindImage (TweetsTableCell tableCell, Tweet tweet)
 			{
-				tableCell.BindImage (_defaultImage);
-				tableCell.ApplyAvatarMask ("Images/Main/mask_avatar.png");
-				ThreadPool.QueueUserWorkItem ((state) =>	 {
-
-				 var backProfileImage = ImageHelper.LoadImageFromUrl (tweet.user.profileImageUrl);
-
-					InvokeOnMainThread (() => 
-                    {
-					if(backProfileImage!= null)
-						tableCell.BindImage (backProfileImage); 
-						tableCell.ApplyAvatarMask ("Images/Main/mask_avatar.png");
-					});
-				});
+				var tweetTableCell = tableCell as ITweetsTableCell;
+				tweetTableCell.UserImage.ApplyImageFromUrlAsunc(tweet.user.profileImageUrl, _defaultImage); 
 			}
 
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)
