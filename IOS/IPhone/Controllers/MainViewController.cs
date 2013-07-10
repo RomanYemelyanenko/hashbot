@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using HashBot.UI;
 using HashBot.Logic;
+using System.Diagnostics;
 
 namespace HashBot
 {
@@ -96,14 +97,7 @@ namespace HashBot
 		private void LoadTweets (object sender, EventArgs e)
 		{
 			EnsureAlertView ();
-
-			try {
-				_searcher.SearchAsync (_hashTag, _tweetsPerPage, OnLoadTweets);
-				// нет перегрузки SearchAsync с пейджингом
-				_tweetsPerPage += 15;
-			} catch (Exception ex) {
-				ShowAlert ( new Error( ex.Message, ex.InnerException));
-			}
+			_searcher.SearchAsync (_hashTag, _tweetsPerPage, OnLoadTweets);
 		}
 
 		private void EnsureAlertView ()
@@ -127,6 +121,7 @@ namespace HashBot
 		{
 			if (error == null) {
 				InvokeOnMainThread (() => {
+					_tweetsPerPage += 15;
 					_tableSource.AddTweets(tweets);
 					_tweetsTable.ReloadData();
 					_loadAlertView.DismissWithClickedButtonIndex (0, true);
@@ -140,8 +135,8 @@ namespace HashBot
 
 		private void ShowAlert(Error error)
 		{
-			UIAlertView noInternetConnectAlert = new UIAlertView () { Title = "Ошибка", Message = error.Message };
-			noInternetConnectAlert.AddButton ("Tru again");
+			UIAlertView noInternetConnectAlert = new UIAlertView () { Title = "Ошибка", Message = "Произошла ошибка при загрузке" };
+			noInternetConnectAlert.AddButton ("Повторить");
 			noInternetConnectAlert.Clicked += ( alertSender, alerte) => { LoadTweets (new object(), new EventArgs ()); };
 			noInternetConnectAlert.Show ();
 		}
