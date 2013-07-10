@@ -2,11 +2,12 @@ using System;
 using System.Collections.Generic;
 
 //using Microsoft.Build.Tasks;
-using System.Web;
-using System.Text;
 using System.Net;
+using System.Text;
+
 using System.Json;
-using MonoTouch.UIKit;
+//using System.Web;
+using System.Json;
 
 namespace HashBot
 {

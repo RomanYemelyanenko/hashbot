@@ -84,13 +84,9 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Resources\" />
-    <Folder Include="Models\" />
-    <Folder Include="Services\" />
-    <Folder Include="Services\TwitterAuthorization\" />
-    <Folder Include="Services\TwitterSearcher\" />
-    <Folder Include="Services\Helpers\" />
     <Folder Include="Resources\Images\" />
     <Folder Include="Controllers\" />
+    <Folder Include="Common\" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Info.plist" />
@@ -100,12 +96,6 @@
   <ItemGroup>
     <Compile Include="Main.cs" />
     <Compile Include="AppDelegate.cs" />
-    <Compile Include="Services\TwitterAuthorization\ITwitterAuthorizationService.cs" />
-    <Compile Include="Services\TwitterAuthorization\ApplicationOnlyTwitterAuthService.cs" />
-    <Compile Include="Services\TwitterSearcher\TwitterSearcher.cs" />
-    <Compile Include="Models\TweetModel.cs" />
-    <Compile Include="Models\Error.cs" />
-    <Compile Include="Services\Helpers\ImageHelper.cs" />
     <Compile Include="Controllers\InfoViewController.cs" />
     <Compile Include="Controllers\MainViewController.cs" />
     <Compile Include="Controllers\MainViewController.designer.cs">
@@ -114,11 +104,12 @@
     <Compile Include="Controllers\TweetProfileController.cs" />
     <Compile Include="Controllers\MainScreanTabController.cs" />
     <Compile Include="Controllers\TweetsTableSource.cs" />
-    <Compile Include="Services\Helpers\Extension.cs" />
-    <Compile Include="Services\Helpers\Fonts.cs" />
     <Compile Include="Views\TweetProfileView.cs" />
     <Compile Include="Views\InfoSrolableResizebleView.cs" />
     <Compile Include="Views\TweetsTableCell.cs" />
+    <Compile Include="Common\Extension.cs" />
+    <Compile Include="Common\Fonts.cs" />
+    <Compile Include="Views\ITweetsTableCell.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>
@@ -182,5 +173,11 @@
   </ItemGroup>
   <ItemGroup>
     <InterfaceDefinition Include="Controllers\MainViewController.xib" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Logic\Logic.csproj">
+      <Project>{40DEEF6F-D3D0-4AAA-86AD-E74908A31911}</Project>
+      <Name>Logic</Name>
+    </ProjectReference>
   </ItemGroup>
 </Project>

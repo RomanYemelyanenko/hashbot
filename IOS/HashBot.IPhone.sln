@@ -3,13 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 11.00
 # Visual Studio 2010
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IOS", "IOS", "{CDC51E71-AA8E-498B-A5B4-CBDC70E65B36}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "IPhone", "IPhone", "{ABB29ACB-0C56-4D32-A2AD-1B4819411FC8}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{54D1C1E6-7B2A-42A1-BED9-BE6521CD7A5C}"
-EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Logic", "Logic", "{B3273327-8D52-4C24-B84D-76178A5F4AD1}"
-EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HashBot.IPhone", "IPhone\HashBot.IPhone.csproj", "{75359426-13FA-4791-B6B5-6D399DD8B0FC}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "123", "IPhone\123\123.csproj", "{8B10A0BD-1FDA-4DFC-999E-71357FCDFFCE}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Logic", "Logic\Logic.csproj", "{40DEEF6F-D3D0-4AAA-86AD-E74908A31911}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -21,6 +19,18 @@ Global
 		AppStore|iPhone = AppStore|iPhone
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{40DEEF6F-D3D0-4AAA-86AD-E74908A31911}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{40DEEF6F-D3D0-4AAA-86AD-E74908A31911}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
+		{40DEEF6F-D3D0-4AAA-86AD-E74908A31911}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{40DEEF6F-D3D0-4AAA-86AD-E74908A31911}.AppStore|iPhone.Build.0 = Release|Any CPU
+		{40DEEF6F-D3D0-4AAA-86AD-E74908A31911}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{40DEEF6F-D3D0-4AAA-86AD-E74908A31911}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{40DEEF6F-D3D0-4AAA-86AD-E74908A31911}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{40DEEF6F-D3D0-4AAA-86AD-E74908A31911}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{40DEEF6F-D3D0-4AAA-86AD-E74908A31911}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{40DEEF6F-D3D0-4AAA-86AD-E74908A31911}.Release|iPhone.Build.0 = Release|Any CPU
+		{40DEEF6F-D3D0-4AAA-86AD-E74908A31911}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{40DEEF6F-D3D0-4AAA-86AD-E74908A31911}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 		{75359426-13FA-4791-B6B5-6D399DD8B0FC}.Ad-Hoc|iPhone.ActiveCfg = Ad-Hoc|iPhone
 		{75359426-13FA-4791-B6B5-6D399DD8B0FC}.Ad-Hoc|iPhone.Build.0 = Ad-Hoc|iPhone
 		{75359426-13FA-4791-B6B5-6D399DD8B0FC}.AppStore|iPhone.ActiveCfg = AppStore|iPhone
@@ -33,12 +43,22 @@ Global
 		{75359426-13FA-4791-B6B5-6D399DD8B0FC}.Release|iPhone.Build.0 = Release|iPhone
 		{75359426-13FA-4791-B6B5-6D399DD8B0FC}.Release|iPhoneSimulator.ActiveCfg = Release|iPhoneSimulator
 		{75359426-13FA-4791-B6B5-6D399DD8B0FC}.Release|iPhoneSimulator.Build.0 = Release|iPhoneSimulator
+		{8B10A0BD-1FDA-4DFC-999E-71357FCDFFCE}.Ad-Hoc|iPhone.ActiveCfg = Release|Any CPU
+		{8B10A0BD-1FDA-4DFC-999E-71357FCDFFCE}.Ad-Hoc|iPhone.Build.0 = Release|Any CPU
+		{8B10A0BD-1FDA-4DFC-999E-71357FCDFFCE}.AppStore|iPhone.ActiveCfg = Release|Any CPU
+		{8B10A0BD-1FDA-4DFC-999E-71357FCDFFCE}.AppStore|iPhone.Build.0 = Release|Any CPU
+		{8B10A0BD-1FDA-4DFC-999E-71357FCDFFCE}.Debug|iPhone.ActiveCfg = Debug|Any CPU
+		{8B10A0BD-1FDA-4DFC-999E-71357FCDFFCE}.Debug|iPhone.Build.0 = Debug|Any CPU
+		{8B10A0BD-1FDA-4DFC-999E-71357FCDFFCE}.Debug|iPhoneSimulator.ActiveCfg = Debug|Any CPU
+		{8B10A0BD-1FDA-4DFC-999E-71357FCDFFCE}.Debug|iPhoneSimulator.Build.0 = Debug|Any CPU
+		{8B10A0BD-1FDA-4DFC-999E-71357FCDFFCE}.Release|iPhone.ActiveCfg = Release|Any CPU
+		{8B10A0BD-1FDA-4DFC-999E-71357FCDFFCE}.Release|iPhone.Build.0 = Release|Any CPU
+		{8B10A0BD-1FDA-4DFC-999E-71357FCDFFCE}.Release|iPhoneSimulator.ActiveCfg = Release|Any CPU
+		{8B10A0BD-1FDA-4DFC-999E-71357FCDFFCE}.Release|iPhoneSimulator.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
-		{ABB29ACB-0C56-4D32-A2AD-1B4819411FC8} = {CDC51E71-AA8E-498B-A5B4-CBDC70E65B36}
-		{54D1C1E6-7B2A-42A1-BED9-BE6521CD7A5C} = {ABB29ACB-0C56-4D32-A2AD-1B4819411FC8}
-		{B3273327-8D52-4C24-B84D-76178A5F4AD1} = {ABB29ACB-0C56-4D32-A2AD-1B4819411FC8}
-		{75359426-13FA-4791-B6B5-6D399DD8B0FC} = {B3273327-8D52-4C24-B84D-76178A5F4AD1}
+		{75359426-13FA-4791-B6B5-6D399DD8B0FC} = {CDC51E71-AA8E-498B-A5B4-CBDC70E65B36}
+		{8B10A0BD-1FDA-4DFC-999E-71357FCDFFCE} = {CDC51E71-AA8E-498B-A5B4-CBDC70E65B36}
 	EndGlobalSection
 	GlobalSection(MonoDevelopProperties) = preSolution
 		StartupItem = IPhone\HashBot.IPhone.csproj
