@@ -7,7 +7,7 @@ namespace HashBot
 {
 	namespace UI
 	{
-		public class TweetsTableCell : UITableViewCell, ITweetsTableCell
+		public class TweetsTableCell : UITableViewCell
 		{
 			private UILabel _headingLabel;
 			private UILabel _subheadingLabel;

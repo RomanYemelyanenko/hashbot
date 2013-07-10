@@ -109,7 +109,6 @@
     <Compile Include="Views\TweetsTableCell.cs" />
     <Compile Include="Common\Extension.cs" />
     <Compile Include="Common\Fonts.cs" />
-    <Compile Include="Views\ITweetsTableCell.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <ItemGroup>

@@ -39,16 +39,9 @@ namespace HashBot
 				DateTime.TryParse (tweet.createdAt, out created);
 
 				cell.UpdateCell (tweet.user.name, tweet.text, created);
-
-				BindImage (cell, tweet);
+				cell.UserImage.ApplyImageFromUrlAsunc(tweet.user.profileImageUrl, _defaultImage);
 
 				return cell;
-			}
-
-			private void BindImage (TweetsTableCell tableCell, Tweet tweet)
-			{
-				var tweetTableCell = tableCell as ITweetsTableCell;
-				tweetTableCell.UserImage.ApplyImageFromUrlAsunc(tweet.user.profileImageUrl, _defaultImage); 
 			}
 
 			public override void RowSelected (UITableView tableView, NSIndexPath indexPath)

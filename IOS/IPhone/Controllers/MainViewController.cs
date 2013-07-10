@@ -44,7 +44,7 @@ namespace HashBot
 			InitTabBarItemsStyle ();
 			InitInfoButtonStyle ();
 
-			OnLoadTweets (new object(), new EventArgs ());
+			LoadTweets (new object(), new EventArgs ());
 		}
 
 		private void InitTableFooter ()
@@ -61,7 +61,7 @@ namespace HashBot
 			_tweetsTable.TableFooterView = footer;
 
 			btnLoadMore.AutoresizingMask = UIViewAutoresizing.FlexibleRightMargin | UIViewAutoresizing.FlexibleLeftMargin;
-			btnLoadMore.TouchUpInside += OnLoadTweets;
+			btnLoadMore.TouchUpInside += LoadTweets;
 		}
 
 		private void InitTableSource ()
@@ -93,17 +93,16 @@ namespace HashBot
 			NavigationItem.RightBarButtonItem.SetTitleTextAttributes (infoAttributes, UIControlState.Normal);
 		}
 
-		private void OnLoadTweets (object sender, EventArgs e)
+		private void LoadTweets (object sender, EventArgs e)
 		{
 			EnsureAlertView ();
 
 			try {
-				_searcher.SearchAsync (_hashTag, _tweetsPerPage, LoadTweets);
+				_searcher.SearchAsync (_hashTag, _tweetsPerPage, OnLoadTweets);
 				// нет перегрузки SearchAsync с пейджингом
 				_tweetsPerPage += 15;
 			} catch (Exception ex) {
-				UIAlertView noInternetConnectAlert = new UIAlertView ("Ошибка", ex.Message, null, null, null);
-				noInternetConnectAlert.Show ();
+				ShowAlert ( new Error( ex.Message, ex.InnerException));
 			}
 		}
 
@@ -124,7 +123,7 @@ namespace HashBot
 				_loadAlertView.Show ();
 		}
 
-		private void LoadTweets (Error error, List<Tweet> tweets)
+		private void OnLoadTweets (Error error, List<Tweet> tweets)
 		{
 			if (error == null) {
 				InvokeOnMainThread (() => {
@@ -134,10 +133,17 @@ namespace HashBot
 				});
 			} else {
 				InvokeOnMainThread (() => {
-				var alert = new UIAlertView ("Ошибка", error.Message, null, null, null);
-				alert.Show ();
+					ShowAlert(error);
 				});
 			}
+		}
+
+		private void ShowAlert(Error error)
+		{
+			UIAlertView noInternetConnectAlert = new UIAlertView () { Title = "Ошибка", Message = error.Message };
+			noInternetConnectAlert.AddButton ("Tru again");
+			noInternetConnectAlert.Clicked += ( alertSender, alerte) => { LoadTweets (new object(), new EventArgs ()); };
+			noInternetConnectAlert.Show ();
 		}
 	}
 }
